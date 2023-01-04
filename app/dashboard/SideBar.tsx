@@ -13,51 +13,60 @@ type Props = {
 
 const SideBar = ({ show, showSideBar }: Props) => {
   return (
-    <>
-      <div className={`dash_sidebar ${show && "review"} `}>
-        {show ? (
-          <HiOutlineChevronDoubleRight
-            className="toggler_1 rounded-circle "
-            onClick={showSideBar}
-          />
-        ) : (
-          <HiOutlineChevronDoubleRight
-            className="toggler_2 rounded-circle "
-            onClick={showSideBar}
-          />
-        )}
+   
+    <aside className={`dash_sidebar ${show && "md:w-[14rem]"}`}>
 
-        <nav className="dash_nav">
-          <div className="main_links">
-            <div className="logo_area">
-              <Image
-                src="/img/logo.svg"
-                width={100}
-                height={100}
-                alt="logo"
-                className="nav_logo"
-              />
-            </div>
 
-            <div className="nav_list mt-3">
-              {AdminRoutes.map((link, index) => (
-                <Link className="nav_link" href={link.url} key={index}>
-                  <span className="link_icon fs-3">{link.icon}</span>
-                  <span className="ps-5">{link.title}</span>
-                </Link>
-              ))}
-            </div>
+    <HiOutlineChevronDoubleRight
+      className={`bg-white text-deep-sapphire-900
+       text-3xl rounded-full
+       absolute -right-3 top-9 border  border-deep-sapphire-900 cursor-pointer dark:text-gray-600 dark:border-gray-600 ${
+         !show && "rotate-180"
+       }`}
+      onClick={showSideBar}
+    />
+
+    <nav className="flex flex-col justify-between h-full overflow-hidden ">
+      <div className=" mt-8">
+        
+           <div className="flex justify-center"> 
+            <Image
+              src="/img/spana-white.png"
+              width={100}
+              height={100}
+              alt="logo"
+              className="text-center"
+            />
           </div>
-          <Link href="#" className="nav_link">
-            {" "}
-            <span className="link_icon fs-3">
-              <HiOutlineArrowRightOnRectangle />{" "}
-            </span>
-            <span className="ps-5">Logout</span>{" "}
-          </Link>
-        </nav>
+          
+          <div className=""> 
+          {AdminRoutes.map((route, index) => (
+            <Link
+              href={route.url}
+              className="flex items-center py-4 pl-3 text-deep-sapphire-900 transition-all hover:bg-deep-sapphire-300 hover:text-white dark:text-gray-300 dark:hover:bg-gray-600"
+              key={index}
+            >
+              {route.icon}
+              <span className={`pl-4 ${!show && "hidden"}`}>{route.title} </span>
+            </Link>
+          ))}
+          </div>
+        
       </div>
-    </>
+
+      <Link
+        href="#"
+        className="flex items-center py-2 pl-3 text-deep-sapphire-900 transition-all hover:bg-deep-sapphire-300 hover:text-white dark:text-gray-300 dark:hover:bg-gray-600"
+      >
+        {" "}
+        <span className="">
+          <HiOutlineArrowRightOnRectangle className="h-6 w-6  mr-4 shrink-0" />{" "}
+        </span>
+        <span className={`pl-4 ${!show && "hidden"}`}>Logout</span>{" "}
+      </Link>
+    </nav>
+  </aside>
+    
   );
 };
 

@@ -14,7 +14,7 @@ const DashboardWrapper = ({children}: any) => {
   return (
     <>
         <SideBar show={show} showSideBar={showSideBar}/>
-        <section className={`dash_container ${show && 'add_body_padding'}`}>
+        <section className={`dash_container ${show && 'pl-[5.25rem] md:pl-[15rem]'}`}>
           <Header/>
             {children}
         </section>

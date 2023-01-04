@@ -1,26 +1,38 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+@import url("https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:wght@100;200;300;400&family=Fira+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+body{
+    font-family: "Fira Sans", sans-serif;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
 
-* {
-  box-sizing: border-box;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: black;
-  }
+
+@layer components {
+    .primary-btn{
+        @apply  font-semibold bg-deep-sapphire-500 hover:bg-deep-sapphire-600 text-white px-4 lg:px-8 py-2 lg:py-2 rounded-full
+    }
+
+    .secondary-btn{
+        @apply px-4 lg:px-8 py-2 font-semibold  bg-deep-sapphire-100 hover:bg-deep-sapphire-200 border border-deep-sapphire-500 focus-visible:ring-2 focus-visible:ring-deep-sapphire-500 focus-visible:ring-offset-2 rounded-full
+    }
+
+    .form-input{
+        @apply w-full rounded border border-gray-300 px-5 py-2 focus:outline-none focus:ring-1  focus:ring-deep-sapphire-600 focus:border-transparent;
+    }
+
+    .form-label{ 
+        @apply  block mb-2 text-sm font-medium text-gray-500 dark:text-gray-400
+    } 
+
+    .dash_container{
+        @apply relative pr-4 pl-[5.25rem] min-h-[62.5rem]  transition-all 
+    }
+
+    
+    .dash_sidebar {
+        @apply fixed top-0 left-0 w-16 h-screen bg-deep-sapphire-100 transition-all z-50 dark:bg-gray-800 dark:border dark:border-gray-700 dark:shadow-lg
+    }
 }

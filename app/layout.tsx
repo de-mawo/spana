@@ -1,17 +1,17 @@
-import 'bootstrap/dist/css/bootstrap.css';
-import '../styles/main.scss';
-import '../styles/responsive.scss';
-
+import "../styles/globals.css";
+import Providers from "./Providers";
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html>
       <head />
-      <body>{children}</body>
+      <body className="bg-white dark:bg-gray-800">
+        <Providers>{children}</Providers>
+      </body>
     </html>
-  )
+  );
 }
