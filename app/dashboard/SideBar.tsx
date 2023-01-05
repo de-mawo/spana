@@ -4,7 +4,7 @@ import {
   HiOutlineArrowRightOnRectangle,
   HiOutlineChevronDoubleRight,
 } from "react-icons/hi2";
-import { AdminRoutes } from "../../lib/routes";
+import { AdminRoutes } from "./routes";
 
 type Props = {
   show: boolean;

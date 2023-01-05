@@ -4,10 +4,26 @@ import Image from "next/image";
 import { signIn } from "next-auth/react";
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
+import { FcGoogle } from "react-icons/fc";
+import { BsApple } from "react-icons/bs";
+import { getCsrfToken } from "next-auth/react"
 
 const Year = new Date().getFullYear();
 
-const Login = () => {
+
+const Login =  () => {
+
+  
+  const [token, setToken] = useState("");
+
+   (async function myFunction() {
+    const csrfToken = await getCsrfToken()
+    setToken(csrfToken)
+  })();
+  
+  
+
+
   const router = useRouter();
 
   const [email, setEmail] = useState("");
@@ -36,7 +52,10 @@ const Login = () => {
   };
 
   return (
-    <form className="flex flex-col space-y-4 ">
+
+    <> 
+    <form className="flex flex-col space-y-4 " method="post" action="/api/auth/signin/email">
+       <input name="csrfToken" type="hidden" defaultValue={token} />
       <div>
         <label htmlFor="email" className="form-label">
           Email Address
@@ -58,7 +77,10 @@ const Login = () => {
             />
           </div>
           <div className="ml-3 text-sm">
-            <label htmlFor="remember" className="text-gray-600 dark:text-gray-400">
+            <label
+              htmlFor="remember"
+              className="text-gray-600 dark:text-gray-400"
+            >
               Show Password
             </label>
           </div>
@@ -74,6 +96,12 @@ const Login = () => {
       <button type="submit" className="primary-btn">
         Login
       </button>
+        <div>
+         
+        <p className="text-center">or</p>
+        </div>
+     
+     
 
       <p className="text-sm font-light text-gray-600 dark:text-gray-400">
         Don’t have an account yet?
@@ -85,6 +113,20 @@ const Login = () => {
         </Link>
       </p>
     </form>
+     <div className="flex items-center space-x-5 my-8">
+     <button className="flex  items-center" onClick={() => signIn('google', {
+       callbackUrl: 'http://localhost:3000/dashboard'
+     })}>
+       {" "}
+       <FcGoogle className="h-6 w-6 mr-2 " /> Log in with Google
+     </button>
+     <button className="flex  items-center">
+       {" "}
+       <BsApple className="h-6 w-6 mr-2  dark:text-gray-300" /> Log in with
+       Apple
+     </button>
+   </div>
+   </>
   );
 };
 

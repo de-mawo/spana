@@ -5,8 +5,16 @@ import {
   HiMagnifyingGlass,
 } from "react-icons/hi2";
 import ToggleDarkLight from "./ToggleDarkLight";
-
+import { useSession } from "next-auth/react";
 const Header = () => {
+
+  const session =  useSession();
+  const imageUrl = session.data?.user?.image
+
+  console.log(imageUrl);
+  
+  
+
   return (
     <header>
       <nav className="p-4  bg-deep-sapphire-100 rounded-md dark:bg-gray-800 dark:shadow-2xl">
@@ -43,7 +51,7 @@ const Header = () => {
             </button>
             <button>
               <Image
-                src="/img/avatar.png"
+                src={imageUrl! } 
                 alt="chefy"
                 width={30}
                 height={30}
