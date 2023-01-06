@@ -1,10 +1,12 @@
 import React from 'react'
-import DashPageTable from './DashPageTable'
+import Calendar from './Calendar'
+// import DashPageTable from './DashPageTable'
 
 const Dashboard = () => {
   return (
     <>
     {/* <DashPageTable/> */}
+    <Calendar/>
     </>
   )
 }

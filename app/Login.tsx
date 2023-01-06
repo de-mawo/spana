@@ -17,7 +17,7 @@ const Login =  () => {
   const [token, setToken] = useState("");
 
    (async function myFunction() {
-    const csrfToken = await getCsrfToken()
+    const csrfToken = await getCsrfToken() || ''
     setToken(csrfToken)
   })();
   

@@ -9,7 +9,7 @@ import { useSession } from "next-auth/react";
 const Header = () => {
 
   const session =  useSession();
-  const imageUrl = session.data?.user?.image
+  const imageUrl = session.data?.user?.image || '/img/avatar.png'
 
   console.log(imageUrl);
   
@@ -38,11 +38,12 @@ const Header = () => {
                 />
               </div>
             </form>
+            <button> dd</button>
           </div>
 
           {/* RIGHT SIDE  */}
 
-          <div className="flex items-center space-x-6">
+          <div className="flex items-center space-x-6 overflow-hidden">
             <button className="bg-white p-2 cursor-pointer text-deep-sapphire-900 rounded-full  dark:bg-slate-600 dark:text-gray-300">
               <ToggleDarkLight />
             </button>
@@ -55,7 +56,7 @@ const Header = () => {
                 alt="chefy"
                 width={30}
                 height={30}
-                className=" w-full object-cover bg-white p-2 rounded-full dark:bg-slate-600"
+                className=" w-full object-cover bg-white p-2 rounded-full  dark:bg-slate-600"
               />
             </button>
           </div>
