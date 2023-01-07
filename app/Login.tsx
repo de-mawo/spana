@@ -21,35 +21,14 @@ const Login =  () => {
     setToken(csrfToken)
   })();
   
+  console.log(token);
   
 
 
   const router = useRouter();
 
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [message, setMessage] = useState<{ type?: string; content?: string }>({
-    type: "",
-    content: "",
-  });
-  const [loading, setLoading] = useState(false);
-
-  const loginUser = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setLoading(true);
-    const res = await signIn("credentials", {
-      email: email,
-      password: password,
-      redirect: false,
-      callbackUrl: `${window.location.origin}/dashboard}`,
-    });
-
-    //TODO: add a toast notification
-    if (res?.error) {
-      setLoading(false);
-      setMessage({ type: "error", content: res.error });
-    } else router.push("/dashboard");
-  };
+  
 
   return (
 
@@ -60,7 +39,7 @@ const Login =  () => {
         <label htmlFor="email" className="form-label">
           Email Address
         </label>
-        <input type="email" className="form-input" />
+        <input type="email" className="form-input" value={email} onChange={(e) => setEmail(e.target.value)} />
       </div>
       <div>
         <label htmlFor="password" className="form-label ">
@@ -93,7 +72,7 @@ const Login =  () => {
         </Link>
       </div>
 
-      <button type="submit" className="primary-btn">
+      <button type="submit" className="primary-btn" onClick={() => signIn('email', { email: email , callbackUrl: 'http://localhost:3000/dashboard'})}>
         Login
       </button>
         <div>

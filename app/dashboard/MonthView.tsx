@@ -89,8 +89,8 @@ const MonthView = ({ events }: MonthViewProps) => {
                       {typeof day === "object" &&
                         day.events.map((event, eventIndex) => (
                           <div className="event flex flex-col" key={eventIndex}>
-                            <span className="bg-deep-sapphire-600 text-white rounded-lg">{event.employee}</span>
-                            <span className="bg-deep-sapphire-600 text-white rounded-lg"> {event.name}</span> 
+                            <span className="bg-deep-sapphire-600 text-white ">{event.employee}</span>
+                            <span className="bg-deep-sapphire-600 text-white "> {event.name}</span> 
                           </div>
                         ))}
                     </>
