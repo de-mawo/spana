@@ -12,13 +12,15 @@ function Calendar() {
   const events = Events;
 
   return (
-    <div className="relative overflow-x-auto">
-      <h1>Calendar</h1>
+    <div className="relative overflow-x-auto my-5">
+     
       <div>
-        {view === 'month' ? <MonthView events={events} /> : <WeekView />}
+      <h1 className='my-2'>Calendar</h1>
+      <MonthView events={events} /> 
+        {/* {view === 'month' ? <MonthView events={events} /> : <WeekView />} */}
       </div>
-      <button type="button" onClick={() => setView('month')}>Month View</button>
-      <button type="button" onClick={() => setView('week')}>Week View</button>
+      {/* <button type="button" onClick={() => setView('month')}>Month View</button>
+      <button type="button" onClick={() => setView('week')}>Week View</button> */}
     </div>
   );
 }

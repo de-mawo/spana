@@ -8,3 +8,9 @@ type Requests = {
   status: string;
   Note: string;
 };
+
+type Events = {
+  name: string;
+  date: string;
+  employee: string;
+}
