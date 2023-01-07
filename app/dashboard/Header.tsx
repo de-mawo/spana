@@ -11,7 +11,7 @@ const Header = () => {
   const session =  useSession();
   const imageUrl = session.data?.user?.image || '/img/avatar.png'
 
-  console.log(imageUrl);
+ 
   
   
 
@@ -38,7 +38,7 @@ const Header = () => {
                 />
               </div>
             </form>
-            <button> dd</button>
+          
           </div>
 
           {/* RIGHT SIDE  */}

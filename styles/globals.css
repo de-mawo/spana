@@ -12,7 +12,7 @@ body{
 
 @layer components {
     .primary-btn{
-        @apply  font-semibold bg-deep-sapphire-500 hover:bg-deep-sapphire-600 text-white px-4 lg:px-8 py-2 lg:py-2 rounded-full
+        @apply  font-semibold bg-deep-sapphire-500 hover:bg-deep-sapphire-600 text-white px-4 lg:px-8 py-2 lg:py-2 rounded-md
     }
 
     .secondary-btn{
@@ -20,7 +20,7 @@ body{
     }
 
     .form-input{
-        @apply w-full rounded border border-gray-300 px-5 py-2 focus:outline-none focus:ring-1  focus:ring-deep-sapphire-600 focus:border-transparent;
+        @apply w-full rounded border border-gray-300 px-5 py-2 focus:outline-none focus:ring-1  focus:ring-deep-sapphire-600 focus:border-transparent dark:bg-slate-600
     }
 
     .form-label{ 
@@ -33,6 +33,6 @@ body{
 
     
     .dash_sidebar {
-        @apply fixed top-0 left-0 w-16 h-screen bg-deep-sapphire-100 transition-all z-50 dark:bg-gray-800 dark:border dark:border-gray-700 dark:shadow-lg
+        @apply fixed top-0 left-0 w-16 h-screen bg-deep-sapphire-100 transition-all z-10 dark:bg-gray-800 dark:border dark:border-gray-700 dark:shadow-lg
     }
 }
