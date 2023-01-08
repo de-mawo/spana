@@ -1,7 +1,7 @@
-import NextAuth, { NextAuthOptions } from "next-auth"
-import GoogleProvider from "next-auth/providers/google"
-import { PrismaAdapter } from "@next-auth/prisma-adapter"
-import prisma from "../../../lib/prismadb"
+import NextAuth, { NextAuthOptions } from "next-auth";
+import GoogleProvider from "next-auth/providers/google";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import prisma from "../../../lib/prismadb";
 import EmailProvider from "next-auth/providers/email";
 
 export const authOptions: NextAuthOptions = {
@@ -17,14 +17,14 @@ export const authOptions: NextAuthOptions = {
         port: process.env.EMAIL_SERVER_PORT,
         auth: {
           user: process.env.EMAIL_SERVER_USER,
-          pass: process.env.EMAIL_SERVER_PASSWORD
-        }
+          pass: process.env.EMAIL_SERVER_PASSWORD,
+        },
       },
-      from: process.env.EMAIL_FROM
+      from: process.env.EMAIL_FROM,
     }),
   ],
   pages: {
-    signIn: '/auth/signin',
+    signIn: "/auth/signin",
   },
 
   session: {
@@ -36,11 +36,11 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     jwt: async ({ token, user }) => {
       if (user) {
-        token.role = user.role
+        token.role = user.role;
       }
-  // console.log(token);
-  
-      return token
+      // console.log(token);
+
+      return token;
     },
     async session({ session, token, user }) {
       // Add role value to user object so it is passed along with session
@@ -50,8 +50,7 @@ export const authOptions: NextAuthOptions = {
       // console.log(session)
       return session;
     },
-    
   },
-}
+};
 
 export default NextAuth(authOptions);

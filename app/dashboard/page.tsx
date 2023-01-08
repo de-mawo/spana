@@ -1,14 +1,15 @@
-import React from 'react'
-import Calendar from './Calendar'
+import React from "react";
+import Calendar from "./Calendar";
+import ViewAccountDropdown from "./ViewAccountDropdown";
 // import DashPageTable from './DashPageTable'
 
 const Dashboard = () => {
   return (
     <>
-    {/* <DashPageTable/> */}
-    <Calendar/>
+      <Calendar />
+      {/* <ViewAccountDropdown/> */}
     </>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;

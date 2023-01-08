@@ -1,51 +1,52 @@
-import React, { useState } from 'react';
+"use client";
 
-const ViewAccountDropdown= () => {
+import Image from "next/image";
+import { useSession, signOut } from "next-auth/react";
+import Link from "next/link";
+import {
+  HiOutlineArrowRightOnRectangle,
+  HiOutlineUserGroup,
+  HiOutlineUserPlus,
+} from "react-icons/hi2";
+import { useState } from "react";
+
+const ViewAccountDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const session = useSession();
+  const imageUrl = session.data?.user?.image || "/img/avatar.png";
 
   return (
-    <div className="relative inline-block text-left">
-      <div>
-        <span className="rounded-md shadow-sm">
-          <button
-            type="button"
-            className="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            Menu
-            <svg className="-mr-1 ml-2 h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-              <path
-                fillRule="evenodd"
-                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </button>
-        </span>
-      </div>
+    <div className="relative inline-block hover:block ">
+      <span onClick={() => setIsOpen(!isOpen)}>
+        <Image
+          src={imageUrl!}
+          alt="chefy"
+          width={30}
+          height={30}
+          className="w-full object-cover bg-white p-2 rounded-full  dark:bg-slate-600"
+        />
+      </span>
       {isOpen && (
-        <div className="origin-top-right absolute right-0 mt-2 -mr-1 w-56 rounded-md shadow-lg">
-          <div className="rounded-md bg-white shadow-xs">
-            <div className="py-1">
-              <a
-                href="#"
-                className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
-              >
-                Account
-              </a>
-              <a
-                href="#"
-                className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
-              >
-                Settings
-              </a>
-              <a
-                href="#"
-                className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
-              >
-                Sign out
-              </a>
-            </div>
+        <div className="origin-top-right absolute right-0 mt-2 -mr-1 w-56 rounded-md shadow-lg z-10 ">
+          <div className=" flex flex-col rounded-md bg-white dark:bg-slate-600 shadow-xs">
+            <span className="flex items-center py-4 pl-3 rounded-md text-deep-sapphire-900 transition-all hover:bg-deep-sapphire-300 hover:text-white dark:text-gray-300 dark:hover:bg-slate-700">
+              <HiOutlineUserGroup className="h-6 w-6 mr-4 shrink-0" />
+              <span className="pl-4">{session.data?.user?.name} </span>
+            </span>
+            <Link
+              href="/dashboard/profile"
+              className="flex items-center py-4 pl-3 rounded-md text-deep-sapphire-900 transition-all hover:bg-deep-sapphire-300 hover:text-white dark:text-gray-300 dark:hover:bg-slate-700"
+              prefetch={false}
+            >
+              <HiOutlineUserPlus className="h-6 w-6 mr-4 shrink-0" />
+              <span className="pl-4">Profile </span>
+            </Link>
+            <button className="flex items-center py-4 pl-3 rounded-md text-deep-sapphire-900 transition-all hover:bg-deep-sapphire-300 hover:text-white dark:text-gray-300 dark:hover:bg-slate-700"
+            onClick={() => signOut({ callbackUrl: 'http://localhost:3000' })}
+            >
+              <HiOutlineArrowRightOnRectangle className="h-6 w-6 mr-4 shrink-0" />
+              <span className="pl-4">Sign Out </span>
+            </button>
           </div>
         </div>
       )}
