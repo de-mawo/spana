@@ -29,7 +29,7 @@ const Header = () => {
 
           {/* RIGHT SIDE  */}
 
-          <div className="flex items-center space-x-6 ">
+          <div className="flex items-center space-x-3 md:space-x-6 ">
             <button className="bg-white p-2 cursor-pointer text-deep-sapphire-900 rounded-full  dark:bg-slate-600 dark:text-gray-300">
               <ToggleDarkLight />
             </button>

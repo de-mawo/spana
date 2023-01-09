@@ -16,7 +16,7 @@ const ViewAccountDropdown = () => {
   const imageUrl = session.data?.user?.image || "/img/avatar.png";
 
   return (
-    <div className="relative inline-block hover:block ">
+    <div className="relative inline-block hover:block cursor-pointer">
       <span onClick={() => setIsOpen(!isOpen)}>
         <Image
           src={imageUrl!}

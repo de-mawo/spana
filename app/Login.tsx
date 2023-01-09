@@ -8,19 +8,41 @@ import { FcGoogle } from "react-icons/fc";
 import { BsApple } from "react-icons/bs";
 import { getCsrfToken } from "next-auth/react";
 
+
 const Year = new Date().getFullYear();
+// type SignInResponse = {
+//   ok: boolean;
+//   error?: string;
+// }
 
 const Login = () => {
+
+  const router = useRouter();
+
   const [token, setToken] = useState("");
+  const [email, setEmail] = useState("");
 
   (async function myFunction() {
     const csrfToken = (await getCsrfToken()) || "";
     setToken(csrfToken);
   })();
 
-  console.log(token);
+ 
+  //TODO: Log in errors not working . Email taking long to send
+  const handleEmailLogin = async() => {
+    await signIn("email", {
+      email,
+      redirect: false,
+    }).then(({ok, error }) => {
+      if (ok) {
+        router.push("/dashboard");
+      } else {
+        alert('OOps there is an error' + (error || 'unknown'))
+      }
+    })
+  }
+ 
 
-  const [email, setEmail] = useState("");
 
   return (
     <>
@@ -37,20 +59,15 @@ const Login = () => {
           <input
             type="email"
             className="form-input"
-            // value={email}
-            // onChange={(e) => setEmail(e.target.value)}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
 
         <button
           type="submit"
           className="primary-btn"
-          onClick={() =>
-            signIn("email", {
-              email,
-              callbackUrl: "http://localhost:3000/dashboard",
-            })
-          }
+          onClick={handleEmailLogin }
         >
           Login
         </button>
