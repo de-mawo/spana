@@ -15,3 +15,12 @@ type Events = {
   employee: string;
 }
 
+type User = {
+  id: string;
+  name: string;
+  surname: string;
+  role: string;
+  job_title: string;
+  email: string;
+  avatar: string;
+};

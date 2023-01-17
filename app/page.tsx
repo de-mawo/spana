@@ -20,7 +20,7 @@ export default async function Home() {
         <h1 className="text-xl text-center my-5  leading-tight tracking-tight text-deep-sapphire-900 md:text-2xl dark:text-white">
           Welcome Please Sign In
         </h1>
-        <AuthBtn />
+        <Login />
       </section>
     </div>
   );

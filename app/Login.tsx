@@ -4,90 +4,87 @@ import Image from "next/image";
 import { signIn } from "next-auth/react";
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
-import { FcGoogle } from "react-icons/fc";
-import { BsApple } from "react-icons/bs";
-import { getCsrfToken } from "next-auth/react";
-
 
 const Year = new Date().getFullYear();
-// type SignInResponse = {
-//   ok: boolean;
-//   error?: string;
-// }
 
 const Login = () => {
-
   const router = useRouter();
 
-  const [token, setToken] = useState("");
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState<{ type?: string; content?: string }>({
+    type: "",
+    content: "",
+  });
+  const [loading, setLoading] = useState(false);
 
-  (async function myFunction() {
-    const csrfToken = (await getCsrfToken()) || "";
-    setToken(csrfToken);
-  })();
-
- 
-  //TODO: Log in errors not working . Email taking long to send
-  const handleEmailLogin = async() => {
-    await signIn("email", {
-      email,
+  const loginUser = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+    const res = await signIn("credentials", {
+      email: email,
+      password: password,
       redirect: false,
-    }).then(({ok, error }) => {
-      if (ok) {
-        router.push("/dashboard");
-      } else {
-        alert('OOps there is an error' + (error || 'unknown'))
-      }
-    })
-  }
- 
+      callbackUrl: `${window.location.origin}/dashboard}`,
+    });
 
+    //TODO: add a toast notification
+    if (res?.error) {
+      setLoading(false);
+      setMessage({ type: "error", content: res.error });
+    } else router.push("/dashboard");
+  };
 
   return (
-    <>
-      <form
-        className="flex flex-col space-y-4 "
-        method="post"
-        action="/api/auth/signin/email"
-      >
-        <input name="csrfToken" type="hidden" defaultValue={token} />
-        <div>
-          <label htmlFor="email" className="form-label">
-            Email Address
-          </label>
-          <input
-            type="email"
-            className="form-input"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-
-        <button
-          type="submit"
-          className="primary-btn"
-          onClick={handleEmailLogin }
-        >
-          Login
-        </button>
-        <div>
-          <p className="text-center">or</p>
-        </div>
-      </form>
-      <div className="  my-8">
-        <button
-          className="flex items-center w-full justify-center border  px-4 lg:px-8 py-2 lg:py-2 rounded-md"
-          onClick={() =>
-            signIn("google", {
-              callbackUrl: "http://localhost:3000/dashboard",
-            })
-          }
-        >
-          <FcGoogle className="h-6 w-6 mr-2 " /> Log in with Google
-        </button>
+    <form className="flex flex-col space-y-4 ">
+      <div>
+        <label htmlFor="email" className="form-label">
+          Email Address
+        </label>
+        <input type="email" className="form-input" />
       </div>
-    </>
+      <div>
+        <label htmlFor="password" className="form-label ">
+          Password
+        </label>
+        <input type="password" className=" form-input" />
+      </div>
+      <div className="flex items-center justify-between">
+        <div className="flex items-start">
+          <div className="flex items-center h-5">
+            <input
+              type="checkbox"
+              className="w-4 h-4 text-deep-sapphire-600 bg-gray-100 rounded border-deep-sapphire-600 focus:ring-deep-sapphire-500  focus:ring-2"
+            />
+          </div>
+          <div className="ml-3 text-sm">
+            <label htmlFor="remember" className="text-gray-600 dark:text-gray-400">
+              Show Password
+            </label>
+          </div>
+        </div>
+        <Link
+          href="/forgot-password"
+          className="text-sm font-medium text-primary-600 hover:underline text-deep-sapphire-600 dark:text-deep-sapphire-300"
+        >
+          Forgot password?
+        </Link>
+      </div>
+
+      <button type="submit" className="primary-btn">
+        Login
+      </button>
+
+      <p className="text-sm font-light text-gray-600 dark:text-gray-400">
+        Don’t have an account yet?
+        <Link
+          href="/sign-up"
+          className="font-medium text-deep-sapphire-600 hover:underline ml-1 dark:text-deep-sapphire-300"
+        >
+          Sign Up
+        </Link>
+      </p>
+    </form>
   );
 };
 

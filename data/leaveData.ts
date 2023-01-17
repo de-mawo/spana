@@ -2,7 +2,6 @@ export const leavebalances = [
   {
     user: "chi12vbxsd",
     type: "Annual",
-    carried_forward: 2,
     yearly_allocation: 21,
     total: 24,
     used: 10,
@@ -11,7 +10,6 @@ export const leavebalances = [
   {
     user: "chi12vbxsd",
     type: "Health",
-    carried_forward: 0,
     yearly_allocation: 12,
     total: 12,
     used: 2,
@@ -20,7 +18,6 @@ export const leavebalances = [
   {
     user: "chi12vbxsd",
     type: "Maternity",
-    carried_forward: 0,
     yearly_allocation: 0,
     total: 0,
     used: 0,
@@ -29,7 +26,6 @@ export const leavebalances = [
   {
     user: "chi12vbxsd",
     type: "Study",
-    carried_forward: 0,
     yearly_allocation: 0,
     total: 0,
     used: 0,
@@ -38,7 +34,6 @@ export const leavebalances = [
   {
     user: "chi12vbxsd",
     type: "Other",
-    carried_forward: 0,
     yearly_allocation: 0,
     total: 0,
     used: 0,
