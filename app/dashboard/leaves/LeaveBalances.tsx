@@ -15,9 +15,7 @@ const LeaveBalances = () => {
               <th scope="col" className="px-6 py-3">
                 Leave Type
               </th>
-              <th scope="col" className="px-6 py-3">
-                Carried Forward
-              </th>
+              
               <th scope="col" className="px-6 py-3">
                 Yearly Allocation
               </th>
@@ -35,7 +33,7 @@ const LeaveBalances = () => {
           <tbody>
             {leavebalances.map((bal, index) => (
               <tr
-                className="bg-white text-center border-b dark:bg-gray-800 dark:border-gray-700"
+                className="bg-white  border-b dark:bg-gray-800 dark:border-gray-700"
                 key={index}
               >
                 <th
@@ -44,7 +42,7 @@ const LeaveBalances = () => {
                 >
                   {bal.type}
                 </th>
-                <td className="px-6 py-4">{bal.carried_forward}</td>
+                
                 <td className="px-6 py-4">{bal.yearly_allocation}</td>
                 <td className="px-6 py-4">{bal.total}</td>
                 <td className="px-6 py-4">{bal.used}</td>
