@@ -31,11 +31,11 @@ body{
     } 
 
     .dash_container{
-        @apply relative pr-4 pl-[5.25rem] min-h-[62.5rem]  transition-all 
+        @apply relative pr-4 pl-[5.25rem] min-h-[62.5rem]  transition-all duration-1000 ease-out
     }
 
     
     .dash_sidebar {
-        @apply fixed top-0 left-0 w-16 h-screen bg-deep-sapphire-100 transition-all z-10 dark:bg-gray-800 dark:border dark:border-gray-700 dark:shadow-lg
+        @apply fixed top-0 left-0 w-16 h-screen bg-deep-sapphire-100 transition-all duration-1000 ease-out z-10 dark:bg-gray-800 dark:border dark:border-gray-700 dark:shadow-lg
     }
 }

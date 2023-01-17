@@ -1,17 +1,25 @@
+'use client'
+
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment } from "react";
-import { HiXMark } from "react-icons/hi2";
+import { Fragment, useState } from "react";
+import { HiOutlinePencilSquare, HiXMark } from "react-icons/hi2";
 import EditUserForm from "./EditUserForm";
 
 type Props = {
-  open: boolean;
-  closeModal: () => void;
+  
+  user: User;
 };
 
-const EditUser = ({ open, closeModal }: Props) => {
+const EditUser = ({ user }: Props) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const onClick = () => setIsOpen(true);
+  const closeModal = () => setIsOpen(false);
+  
   return (
     <div>
-      <Transition appear show={open} as={Fragment}>
+      <HiOutlinePencilSquare onClick={onClick}  className="cursor-pointer h-6 w-6" />
+      <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
           <Transition.Child
             as={Fragment}
@@ -24,7 +32,6 @@ const EditUser = ({ open, closeModal }: Props) => {
           >
             <div className="fixed inset-0 bg-black bg-opacity-25" />
           </Transition.Child>
-
 
           <div className="fixed inset-y-0 right-0   overflow-y-auto">
             <div className="flex min-h-full items-center justify-center  text-center">
@@ -39,7 +46,7 @@ const EditUser = ({ open, closeModal }: Props) => {
               >
                 <Dialog.Panel className="w-64  h-screen transform overflow-hidden rounded-l-lg bg-white dark:bg-slate-800 p-6 align-middle shadow-xl transition-all">
                   <div>
-                  <HiXMark onClick={closeModal} className='h-6 w-6' />
+                    <HiXMark onClick={closeModal} className="h-6 w-6" />
                   </div>
                   <Dialog.Title
                     as="h3"
@@ -48,23 +55,11 @@ const EditUser = ({ open, closeModal }: Props) => {
                     Edit User
                   </Dialog.Title>
 
-                 <EditUserForm/>
-
-                  
+                  <EditUserForm user={user}/>
                 </Dialog.Panel>
-
-
-
-
-
-                
               </Transition.Child>
             </div>
           </div>
-
-
-
-
         </Dialog>
       </Transition>
     </div>

@@ -1,8 +1,15 @@
-import React, { ChangeEvent, useState } from "react";
+'use client'
+
+import  { ChangeEvent, useState } from "react";
 import { HiOutlineTrash } from "react-icons/hi2";
 import { GoChevronDown } from "react-icons/go";
 
-const EditUserForm = () => {
+type Props = {
+  
+  user: User;
+};
+
+const EditUserForm = ({ user }: Props) => {
   const options = ["User", "Moderator", "Admin"];
 
   const [selectedOption, setSelectedOption] = useState(options[0]);
@@ -20,10 +27,9 @@ const EditUserForm = () => {
           </label>
           <input
             type="text"
-            name="title"
-            id="name"
+            name="name"
             className="form-input"
-            value=""
+            value={user.name}
             placeholder="Name"
           />
         </div>
@@ -34,10 +40,9 @@ const EditUserForm = () => {
           </label>
           <input
             type="text"
-            name="title"
-            id="name"
+            name="surname"
             className="form-input"
-            value=""
+            value={user.surname}
             placeholder="Surname"
           />
         </div>
@@ -48,10 +53,10 @@ const EditUserForm = () => {
           </label>
           <input
             type="text"
-            name="title"
+            name="job_title"
             id="brand"
             className="form-input"
-            value=""
+            value={user.job_title}
             placeholder="Job Title"
           />
         </div>
