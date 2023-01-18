@@ -5,7 +5,7 @@ import { GoChevronDown } from 'react-icons/go';
 
 const AddMyDays = () => {
 
-    const options = ["Annual", "Health", "Study", "Maternity", "Other"];
+  const options = ["Annual", "Health", "Study", "Maternity", "UnPaid", "Family", "Paternity"];
     const options2 = [1, 2, 3, 4, 5];
   
     const [selectedOption, setSelectedOption] = useState(options[0]);

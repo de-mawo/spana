@@ -5,7 +5,7 @@ import { GoChevronDown } from "react-icons/go";
 import Datepicker from "react-tailwindcss-datepicker";
 
 const Request = () => {
-  const options = ["Annual", "Health", "Study", "Maternity", "Other"];
+  const options = ["Annual", "Health", "Study", "Maternity", "UnPaid", "Family", "Paternity"];
   const options2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
 
   const [selectedOption, setSelectedOption] = useState(options[0]);

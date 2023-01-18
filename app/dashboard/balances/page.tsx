@@ -1,7 +1,11 @@
-import React from "react";
+import BalancesTable from "./BalancesTable";
+
+import {AllBalances} from '../../../data/leaveData'
 
 const Balances = () => {
-  return <div>Balances</div>;
+  return <div>
+    <BalancesTable allbalances={AllBalances}/>
+  </div>;
 };
 
 export default Balances;
