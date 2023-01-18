@@ -78,7 +78,7 @@ const Login = () => {
       <p className="text-sm font-light text-gray-600 dark:text-gray-400">
         Don’t have an account yet?
         <Link
-          href="/sign-up"
+          href="/signup"
           className="font-medium text-deep-sapphire-600 hover:underline ml-1 dark:text-deep-sapphire-300"
         >
           Sign Up

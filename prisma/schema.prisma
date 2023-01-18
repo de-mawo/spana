@@ -5,6 +5,11 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator pothos {
+  provider = "prisma-pothos-types"
+}
+
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -39,8 +44,8 @@ model Session {
 }
 
 enum Role {
-  ADMIN
   USER
+  ADMIN
 }
 
 model User {
@@ -48,10 +53,11 @@ model User {
   name          String?
   email         String?   @unique
   emailVerified DateTime?
-  image         String?
+  image         String?  @default("https://res.cloudinary.com/demawo/image/upload/v1674075785/avatar_vehl5k.png")
   accounts      Account[]
   sessions      Session[]
   role            Role             @default(USER)
+  password    String
 }
 
 model VerificationToken {

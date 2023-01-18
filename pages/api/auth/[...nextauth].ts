@@ -41,7 +41,8 @@ export const authOptions: NextAuthOptions = {
       // console.log(token);
 
       return token;
-    },
+    },  
+
     async session({ session, token, user }) {
       // Add role value to user object so it is passed along with session
       if (session.user) {
