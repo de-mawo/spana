@@ -3,28 +3,68 @@ import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import prisma from "../../../lib/prismadb";
 import EmailProvider from "next-auth/providers/email";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { compare } from "bcrypt";
+import { UserRoutes } from "../../../app/dashboard/routes";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-    }),
-    EmailProvider({
-      server: {
-        host: process.env.EMAIL_SERVER_HOST,
-        port: process.env.EMAIL_SERVER_PORT,
-        auth: {
-          user: process.env.EMAIL_SERVER_USER,
-          pass: process.env.EMAIL_SERVER_PASSWORD,
+    
+    CredentialsProvider({
+      id: "credentials",
+      name: "Credentials",
+      credentials: {
+        email: {
+          label: "Email",
+          type: "text",
+        },
+        password: {
+          label: "Password",
+          type: "password",
         },
       },
-      from: process.env.EMAIL_FROM,
+
+      async authorize(credentials) {
+        const user = await prisma.user.findFirst({
+          where: {
+            email: credentials?.email,
+            
+          },
+        });
+
+        // console.log(user);
+        
+        // Email Not found
+        if (!user) {
+          throw new Error("Authorization error !");
+        }
+
+        // Unverified User
+        if (user.emailVerified == null) {
+          throw new Error("Authorization error 2 !");
+        }
+
+        // If no error and we have user data, return it
+        if (user) {
+          const isPasswordCorrect = await compare(
+            credentials!.password,
+            user.password
+          );
+          if (!isPasswordCorrect) {
+            throw new Error("Password is incorrect");
+          }
+
+          return user;
+        }
+        // Return null if user data could not be retrieved
+        return null;
+      },
     }),
   ],
+  secret: process.env.NEXTAUTH_SECRET,
   pages: {
-    signIn: "/auth/signin",
+    signIn: "/",
   },
 
   session: {
@@ -34,6 +74,7 @@ export const authOptions: NextAuthOptions = {
     secret: process.env.NEXTAUTH_JWT_SECRET,
   },
   callbacks: {
+    
     jwt: async ({ token, user }) => {
       if (user) {
         token.role = user.role;
@@ -41,7 +82,7 @@ export const authOptions: NextAuthOptions = {
       // console.log(token);
 
       return token;
-    },  
+    },
 
     async session({ session, token, user }) {
       // Add role value to user object so it is passed along with session

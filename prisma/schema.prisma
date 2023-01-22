@@ -58,6 +58,12 @@ model User {
   sessions      Session[]
   role            Role             @default(USER)
   password    String
+  //TODO: Remove the isVerified if email Verified Works
+  isVerified    Boolean   @default(false)
+  activateAccToken String?
+  activateAccTokenExpires DateTime?
+  passwordResetToken String?
+  passwordResetExpires DateTime?
 }
 
 model VerificationToken {

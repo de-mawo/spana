@@ -1,6 +1,5 @@
 "use client";
 import Link from "next/link";
-import Image from "next/image";
 import { signIn } from "next-auth/react";
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -9,7 +8,7 @@ const Year = new Date().getFullYear();
 
 const Login = () => {
   const router = useRouter();
-
+  const [isChecked, setIsChecked] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState<{ type?: string; content?: string }>({
@@ -36,18 +35,36 @@ const Login = () => {
   };
 
   return (
-    <form className="flex flex-col space-y-4 ">
+    <form className="flex flex-col space-y-4 " onSubmit={loginUser}>
+        {message.content && (
+        <span
+          className={`${
+            message.type === "error" ?  'text-radical-red-500' : 'text-turquoise-500'
+          }`}
+        >
+          {" "}
+          <p>{message.content}</p>
+        </span>
+      )}
       <div>
         <label htmlFor="email" className="form-label">
           Email Address
         </label>
-        <input type="email" className="form-input" />
+        <input type="email" className="form-input" 
+        name="email"
+        value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
       </div>
       <div>
         <label htmlFor="password" className="form-label ">
           Password
         </label>
-        <input type="password" className=" form-input" />
+        <input  type={!isChecked ? "password" : "text"}className=" form-input" 
+        name="password" 
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        />
       </div>
       <div className="flex items-center justify-between">
         <div className="flex items-start">
@@ -55,6 +72,8 @@ const Login = () => {
             <input
               type="checkbox"
               className="w-4 h-4 text-deep-sapphire-600 bg-gray-100 rounded border-deep-sapphire-600 focus:ring-deep-sapphire-500  focus:ring-2"
+              checked={isChecked}
+            onChange={() => setIsChecked(!isChecked)}
             />
           </div>
           <div className="ml-3 text-sm">
@@ -71,7 +90,7 @@ const Login = () => {
         </Link>
       </div>
 
-      <button type="submit" className="primary-btn">
+      <button type="submit" className="primary-btn" disabled={loading}>
         Login
       </button>
 

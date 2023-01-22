@@ -1,3 +1,4 @@
+
 import prisma from "../../../lib/prismadb";
 import { builder } from "../../builder";
 
@@ -19,6 +20,8 @@ builder.prismaObject("User", {
 });
 
 builder.queryFields((t) => ({
+
+
   getUser: t.prismaField({
     type: "User",
     args: {
