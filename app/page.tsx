@@ -1,11 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
-import AuthBtn from "./AuthBtn";
-import Login from "./Login";
+import LoginComponent from "./LoginComponent";
+
+// import Login from "./Login";
 
 export default async function Home() {
   return (
     <div className="flex flex-col items-center justify-center   py-8 px-6 md:h-screen ">
+    
       <section className="w-full  rounded-lg shadow-2xl sm:max-w-md p-6 dark:border dark:border-gray-700">
         <Link href={"/"} className="  ">
           <Image
@@ -20,7 +22,8 @@ export default async function Home() {
         <h1 className="text-xl text-center my-5  leading-tight tracking-tight text-deep-sapphire-900 md:text-2xl dark:text-white">
           Welcome Please Sign In
         </h1>
-        <Login />
+        {/* <Login /> */}
+        <LoginComponent/>
       </section>
     </div>
   );

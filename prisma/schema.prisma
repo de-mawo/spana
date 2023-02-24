@@ -57,9 +57,11 @@ model User {
   accounts      Account[]
   sessions      Session[]
   role            Role             @default(USER)
-  password    String
+
+  // Use the below fields only if passwords are required in the future
+  password    String?
   //TODO: Remove the isVerified if email Verified Works
-  isVerified    Boolean   @default(false)
+  isVerified    Boolean?   @default(false)
   activateAccToken String?
   activateAccTokenExpires DateTime?
   passwordResetToken String?
