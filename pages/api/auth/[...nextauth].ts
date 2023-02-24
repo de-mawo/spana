@@ -86,12 +86,13 @@ export const authOptions: NextAuthOptions = {
 
       return token;
     },
-    async signIn({  user }) {
-      if (!user.email?.endsWith(process.env.ALLOWED_DOMAIN as string)) {
-        throw new Error('You are not allowed to access this platform')
-      }
-      return true // Do different verification for other providers that don't have `email_verified`
-    },
+
+    // async signIn({  user }) {
+    //   if (!user.email?.endsWith(process.env.ALLOWED_DOMAIN as string)) {
+    //     throw new Error('You are not allowed to access this platform')
+    //   }
+    //   return true // Do different verification for other providers that don't have `email_verified`
+    // },
   
 
     async session({ session, token, user }) {
