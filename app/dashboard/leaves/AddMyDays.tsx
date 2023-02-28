@@ -1,43 +1,54 @@
-'use client'
+"use client";
 
-import  { ChangeEvent, useState } from 'react'
-import { GoChevronDown } from 'react-icons/go';
+import { useSession } from "next-auth/react";
+import {  FormEvent, useState } from "react";
+import { GoChevronDown } from "react-icons/go";
 
 const AddMyDays = () => {
+  const { data } = useSession();
 
-  const options = ["Annual", "Health", "Study", "Maternity", "UnPaid", "Family", "Paternity"];
-    const options2 = [1, 2, 3, 4, 5];
-  
-    const [selectedOption, setSelectedOption] = useState(options[0]);
-    const [selectedOption2, setSelectedOption2] = useState(options2[0]);
-  
-    const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
-      const selectedValue = e.target.value;
-      setSelectedOption(selectedValue);
-    };
-  
-    const handleChange2 = (e: ChangeEvent<HTMLSelectElement>) => {
-      const selectedValue = Number(e.target.value);
-      setSelectedOption2(selectedValue);
-    };
+  const name = data?.user?.name as string;
+  const email = data?.user?.email as string;
 
+  const options = [
+    "Annual",
+    "Health",
+    "Study",
+    "Maternity",
+    "UnPaid",
+    "Family",
+    "Paternity",
+  ];
+  const options2 = [1, 2, 3, 4, 5];
+
+  const [selectLeave, setSelectLeave] = useState(options[0]);
+  const [numberOfDays, setNumberOfDays] = useState(options2[0]);
+  const [notes, setNotes] = useState("");
+
+  const RequestAddDays = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(selectLeave, numberOfDays, notes, name, email);
+  };
 
   return (
-    
-        <div className="  rounded-lg shadow-2xl p-6 dark:border dark:border-gray-700">
+    <div className="  rounded-lg shadow-2xl p-6 dark:border dark:border-gray-700">
       <h2 className="text-center  mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
         Request Days to Be Added
       </h2>
 
-      <form action="" className="flex flex-col space-y-4 ">
+      <form
+        action=""
+        className="flex flex-col space-y-4 "
+        onSubmit={RequestAddDays}
+      >
         <label className="form-label" htmlFor="leave-type">
           Add To
         </label>
         <div className="relative inline-block w-full">
           <select
             id="leave-type"
-            value={selectedOption}
-            onChange={handleChange}
+            value={selectLeave}
+            onChange={(e) => setSelectLeave(e.target.value)}
             className="block w-full rounded-md appearance-none bg-white border border-gray-400 px-4 py-2 pr-8 leading-tight  focus:outline-none focus:ring-1 
           focus:ring-deep-sapphire-600 focus:border-transparent dark:bg-slate-600"
           >
@@ -57,8 +68,8 @@ const AddMyDays = () => {
         <div className="relative inline-block w-full">
           <select
             id="days-off"
-            value={selectedOption2}
-            onChange={handleChange2}
+            value={numberOfDays}
+            onChange={(e) => setNumberOfDays(Number(e.target.value))}
             className="block w-full rounded-md appearance-none bg-white border border-gray-400 px-4 py-2 pr-8 leading-tight  focus:outline-none focus:ring-1 
           focus:ring-deep-sapphire-600 focus:border-transparent dark:bg-slate-600"
           >
@@ -72,13 +83,18 @@ const AddMyDays = () => {
             <GoChevronDown className="dark:text-gray-300 font" />
           </div>
         </div>
-       
 
         <div>
           <label htmlFor="notes" className="form-label">
             Notes
           </label>
-          <input id="comment" type="text" className="form-input" />
+          <input
+            id="comment"
+            type="text"
+            className="form-input"
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
+          />
         </div>
 
         <button type="submit" className="primary-btn">
@@ -86,8 +102,7 @@ const AddMyDays = () => {
         </button>
       </form>
     </div>
-    
-  )
-}
+  );
+};
 
-export default AddMyDays
+export default AddMyDays;

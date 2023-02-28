@@ -1,37 +1,23 @@
 import { builder } from "../../builder";
 import prisma from "../../../lib/prismadb";
-import bcrypt from "bcrypt";
+import { Role } from "./enum";
 
 builder.mutationFields((t) => ({
-  // signUp: t.prismaField({
-  //   type: "User",
-  //   args: {
-  //     email: t.arg.string({ required: true }),
-  //     name: t.arg.string({ required: true }),
-  //     password: t.arg.string({ required: true }),
-  //   },
-  //   resolve: async (query, _, args, context) => {
-  //     const user = await prisma.user.findFirst({
-  //       ...query,
-  //       where: { email: args.email },
-  //     });
+  EditUser: t.prismaField({
+    type: "User",
+    args: {
+      role: t.arg({ type: Role, required: true }),
+      id: t.arg.string({ required: true }),
+    },
+    resolve: async (query, _, args, context) => {
+      const roleEnum: any = args.role; //TODO: The any type here is a quick fix ,investigate how to properly deal with this enum
 
-  //     //Check if email is allowed to register
-  //     if(!args.email.endsWith('spana.com')){
-  //       throw new Error('Email Not Allowed')
-  //     }
-  //     //Check if User Already Exist. 
-  //     if (user) {
-  //       return user;
-  //     }
-  //     const hashedPassword = await bcrypt.hash(args.password, 12);
-  //     const newUser = await prisma.user.create({
-  //       data:{ ...args, password: hashedPassword}
-  //     });
+      const newProfile = await prisma.user.update({
+        where: { id: args.id },
+        data: { role: roleEnum },
+      });
 
-  //     return newUser;
-  //   },
-  // }),
-
-  
+      return newProfile;
+    },
+  }),
 }));

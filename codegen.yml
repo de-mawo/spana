@@ -1,5 +1,5 @@
 # codegen.yml
-
+overwrite: true
 schema: http://localhost:3000/api/graphql
 documents: "graphql/*"
 generates: 
@@ -7,4 +7,5 @@ generates:
     plugins:
       - typescript
       - typescript-operations
-      - typed-document-node
+      # - typed-document-node
+      - typescript-urql

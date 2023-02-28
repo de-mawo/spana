@@ -1,11 +1,7 @@
-
 import prisma from "../../../lib/prismadb";
 import { builder } from "../../builder";
+import { Role } from "./enum";
 
-const Role = builder.enumType("Role", {
-  values: ["USER", "ADMIN"],
-  description: "User role",
-});
 
 builder.prismaObject("User", {
   fields: (t) => ({
@@ -20,17 +16,15 @@ builder.prismaObject("User", {
 });
 
 builder.queryFields((t) => ({
-
-
   getUser: t.prismaField({
     type: "User",
     args: {
-      userId: t.arg.string({ required: true }),
+      email: t.arg.string({ required: true }),
     },
-    resolve: async (query, _, args) => {
+    resolve: async (query, _, args, context) => {
       const user = await prisma.user.findUnique({
         ...query,
-        where: { id: args?.userId },
+        where: { id: args?.email },
       });
       if (!user) {
         throw new Error("User not found");
@@ -39,7 +33,7 @@ builder.queryFields((t) => ({
     },
   }),
   getUsers: t.prismaField({
-    type: ['User'],
+    type: ["User"],
     resolve: (query) => prisma.user.findMany(query),
   }),
 }));
