@@ -26,7 +26,7 @@ const LeaveBalances = () => {
                 Used
               </th>
               <th scope="col" className="px-6 py-3">
-                Balance
+                Remaining
               </th>
             </tr>
           </thead>

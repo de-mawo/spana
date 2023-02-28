@@ -11,13 +11,13 @@ const AddMyDays = () => {
   const email = data?.user?.email as string;
 
   const options = [
-    "Annual",
-    "Health",
-    "Study",
-    "Maternity",
-    "UnPaid",
-    "Family",
-    "Paternity",
+    "ANNUAL",
+    "HEALTH",
+    "STUDY",
+    "MATERNITY",
+    "UNPAID",
+    "FAMILY",
+    "PATERNITY"
   ];
   const options2 = [1, 2, 3, 4, 5];
 
