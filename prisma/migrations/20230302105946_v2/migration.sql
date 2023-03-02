@@ -1,0 +1,30 @@
+-- AlterTable
+ALTER TABLE "AddDays" ALTER COLUMN "approved" DROP NOT NULL,
+ALTER COLUMN "rejected" DROP NOT NULL,
+ALTER COLUMN "moderatorNote" DROP NOT NULL;
+
+-- AlterTable
+ALTER TABLE "Balances" ALTER COLUMN "annualCredit" DROP NOT NULL,
+ALTER COLUMN "annualUsed" DROP NOT NULL,
+ALTER COLUMN "annualRemaining" DROP NOT NULL,
+ALTER COLUMN "healthCredit" DROP NOT NULL,
+ALTER COLUMN "healthUsed" DROP NOT NULL,
+ALTER COLUMN "healthRemaining" DROP NOT NULL,
+ALTER COLUMN "studyCredit" DROP NOT NULL,
+ALTER COLUMN "studyUsed" DROP NOT NULL,
+ALTER COLUMN "studyRemaining" DROP NOT NULL,
+ALTER COLUMN "maternityCredit" DROP NOT NULL,
+ALTER COLUMN "maternityUsed" DROP NOT NULL,
+ALTER COLUMN "maternityRemaining" DROP NOT NULL,
+ALTER COLUMN "familyCredit" DROP NOT NULL,
+ALTER COLUMN "familyUsed" DROP NOT NULL,
+ALTER COLUMN "familyRemaining" DROP NOT NULL,
+ALTER COLUMN "paternityCredit" DROP NOT NULL,
+ALTER COLUMN "paternityUsed" DROP NOT NULL,
+ALTER COLUMN "paternityRemaining" DROP NOT NULL,
+ALTER COLUMN "unpaidUsed" DROP NOT NULL;
+
+-- AlterTable
+ALTER TABLE "Leave" ALTER COLUMN "approved" DROP NOT NULL,
+ALTER COLUMN "rejected" DROP NOT NULL,
+ALTER COLUMN "moderatorNote" DROP NOT NULL;

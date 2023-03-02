@@ -95,10 +95,10 @@ model Leave {
   requestedBy    String
   requesterNote  String?
   requesterEmail String
-  approved       Boolean  @default(false)
-  rejected       Boolean  @default(false)
+  approved       Boolean?  @default(false)
+  rejected       Boolean?  @default(false)
   moderatedBy    String   @default("null")
-  moderatorNote  String   @default("")
+  moderatorNote  String?   @default("")
 }
 
 model AddDays {
@@ -109,33 +109,33 @@ model AddDays {
   requestedBy    String
   requesterNote  String?
   requesterEmail String
-  approved       Boolean  @default(false)
-  rejected       Boolean  @default(false)
+  approved       Boolean?  @default(false)
+  rejected       Boolean?  @default(false)
   moderatedBy    String   @default("null")
-  moderatorNote  String   @default("")
+  moderatorNote  String?   @default("")
 }
 
 model Balances {
   id                 String @id @default(cuid())
-  annualCredit       Float  @default(0)
-  annualUsed         Float  @default(0)
-  annualRemaining    Float  @default(0)
-  healthCredit       Float  @default(0)
-  healthUsed         Float  @default(0)
-  healthRemaining    Float  @default(0)
-  studyCredit        Float  @default(0)
-  studyUsed          Float  @default(0)
-  studyRemaining     Float  @default(0)
-  maternityCredit    Float  @default(0)
-  maternityUsed      Float  @default(0)
-  maternityRemaining Float  @default(0)
-  familyCredit       Float  @default(0)
-  familyUsed         Float  @default(0)
-  familyRemaining    Float  @default(0)
-  paternityCredit    Float  @default(0)
-  paternityUsed      Float  @default(0)
-  paternityRemaining Float  @default(0)
-  unpaidUsed         Float  @default(0)
+  annualCredit       Float?  @default(0)
+  annualUsed         Float?  @default(0)
+  annualRemaining    Float?  @default(0)
+  healthCredit       Float?  @default(0)
+  healthUsed         Float?  @default(0)
+  healthRemaining    Float?  @default(0)
+  studyCredit        Float?  @default(0)
+  studyUsed          Float?  @default(0)
+  studyRemaining     Float?  @default(0)
+  maternityCredit    Float?  @default(0)
+  maternityUsed      Float?  @default(0)
+  maternityRemaining Float?  @default(0)
+  familyCredit       Float?  @default(0)
+  familyUsed         Float?  @default(0)
+  familyRemaining    Float?  @default(0)
+  paternityCredit    Float?  @default(0)
+  paternityUsed      Float?  @default(0)
+  paternityRemaining Float?  @default(0)
+  unpaidUsed         Float?  @default(0)
   userId             String
   user               User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

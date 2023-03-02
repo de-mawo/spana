@@ -5,10 +5,12 @@ import type PrismaTypes from '@pothos/plugin-prisma/generated'
 
 
 import prisma from "../lib/prismadb";
+import { createContext } from "./context";
 
 
 export const builder = new SchemaBuilder<{   
     PrismaTypes: PrismaTypes;
+    Context: ReturnType<typeof createContext>;
     Scalars: {
       DateTime: { Input: Date; Output: Date };
     };
