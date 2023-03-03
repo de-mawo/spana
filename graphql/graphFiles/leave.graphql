@@ -1,0 +1,100 @@
+query getLeave($getLeaveId: String!) {
+  getLeave(id: $getLeaveId) {
+    approved
+    daysRequested
+    endDate
+    id
+    moderatedBy
+    moderatorNote
+    rejected
+    requestedAt
+    requestedBy
+    requesterEmail
+    requesterNote
+    startDate
+    type
+  }
+}
+
+query getAllLeaves {
+  getAllLeaves {
+    approved
+    daysRequested
+    endDate
+    id
+    moderatedBy
+    moderatorNote
+    rejected
+    requestedAt
+    requestedBy
+    requesterEmail
+    requesterNote
+    startDate
+    type
+  }
+}
+
+query getUnModeratedLeaves {
+  getUnModeratedLeaves {
+   moderatedBy
+    daysRequested
+    endDate
+    id
+    requestedAt
+    requestedBy
+    requesterNote
+    startDate
+    type
+  }
+}
+
+mutation AddLeave(
+  $daysRequested: Float!
+  $endDate: String!
+  $requestedBy: String!
+  $requesterEmail: String!
+  $startDate: String!
+  $type: LeaveType!
+  $requesterNote: String
+) {
+  AddLeave(
+    daysRequested: $daysRequested
+    endDate: $endDate
+    requestedBy: $requestedBy
+    requesterEmail: $requesterEmail
+    startDate: $startDate
+    type: $type
+    requesterNote: $requesterNote
+  ) {
+    approved
+    daysRequested
+    endDate
+    id
+    requestedBy
+    requesterEmail
+    requesterNote
+    startDate
+    type
+  }
+}
+
+mutation EditLeave(
+  $editLeaveId: String!
+  $moderatedBy: String!
+  $approved: Boolean
+  $moderatorNote: String
+  $rejected: Boolean
+) {
+  EditLeave(
+    id: $editLeaveId
+    moderatedBy: $moderatedBy
+    approved: $approved
+    moderatorNote: $moderatorNote
+    rejected: $rejected
+  ) {
+    approved
+    moderatedBy
+    moderatorNote
+    rejected
+  }
+}

@@ -7,6 +7,6 @@ export const LeaveType = builder.enumType("LeaveType", {
     "MATERNITY",
     "UNPAID",
     "FAMILY",
-    "PATERNITY"],
+    "PATERNITY"] as const,
     description: "Leave Types",
   }); 

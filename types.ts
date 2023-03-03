@@ -1,13 +1,6 @@
-type Requests = {
-  id: string;
-  requestedBy: string;
-  type: string;
-  startDate: string;
-  endDate: string;
-  days_taken: number;
-  status: string;
-  Note: string;
-};
+import { GetUnModeratedLeavesQuery } from "./graphql/generated";
+
+export type Requests = GetUnModeratedLeavesQuery["getUnModeratedLeaves"][0]
 
 type Events = {
   name: string;

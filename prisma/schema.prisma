@@ -103,7 +103,7 @@ model Leave {
 
 model AddDays {
   id             String   @id @default(cuid())
-  type           String
+  type           LeaveType
   daysRequested  Float
   requestedAt    DateTime @default(now())
   requestedBy    String

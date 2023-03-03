@@ -3,6 +3,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment, useState } from "react";
 import { HiOutlineHandThumbDown, HiOutlineHandThumbUp } from "react-icons/hi2";
+import { Requests } from "../../../types";
 import RequestCard from "./RequestCard";
 
 type Props = {
@@ -58,7 +59,7 @@ const RequestModal = ({ requested }: Props) => {
                     <p>
                       From: {requested.startDate} to {requested.endDate}
                     </p>
-                    <p>Actual Days taken: {requested.days_taken}</p>
+                    <p>Actual Days Requested: {requested.daysRequested}</p>
                   </div>
 
                   <div className="mt-4">
@@ -89,4 +90,4 @@ const RequestModal = ({ requested }: Props) => {
   );
 };
 
-export default RequestModal;
+export default  RequestModal;

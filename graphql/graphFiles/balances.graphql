@@ -1,0 +1,147 @@
+mutation AddBalances(
+  $userId: String!
+  $annualCredit: Float
+  $familyCredit: Float
+  $healthCredit: Float
+  $maternityCredit: Float
+  $paternityCredit: Float
+  $studyCredit: Float
+) {
+  AddBalances(
+    userId: $userId
+    annualCredit: $annualCredit
+    familyCredit: $familyCredit
+    healthCredit: $healthCredit
+    maternityCredit: $maternityCredit
+    paternityCredit: $paternityCredit
+    studyCredit: $studyCredit
+  ) {
+    annualCredit
+    familyCredit
+    healthCredit
+    maternityCredit
+    paternityCredit
+    studyCredit
+  }
+}
+
+mutation EditBalances(
+  $editBalancesId: String!
+  $annualCredit: Float
+  $annualRemaining: Float
+  $annualUsed: Float
+  $familyCredit: Float
+  $familyRemaining: Float
+  $familyUsed: Float
+  $healthCredit: Float
+  $healthRemaining: Float
+  $healthUsed: Float
+  $maternityCredit: Float
+  $maternityRemaining: Float
+  $maternityUsed: Float
+  $paternityCredit: Float
+  $paternityRemaining: Float
+  $paternityUsed: Float
+  $unpaidUsed: Float
+  $studyUsed: Float
+  $studyRemaining: Float
+  $studyCredit: Float
+) {
+  EditBalances(
+    id: $editBalancesId
+    annualCredit: $annualCredit
+    annualRemaining: $annualRemaining
+    annualUsed: $annualUsed
+    familyCredit: $familyCredit
+    familyRemaining: $familyRemaining
+    familyUsed: $familyUsed
+    healthCredit: $healthCredit
+    healthRemaining: $healthRemaining
+    healthUsed: $healthUsed
+    maternityCredit: $maternityCredit
+    maternityRemaining: $maternityRemaining
+    maternityUsed: $maternityUsed
+    paternityCredit: $paternityCredit
+    paternityRemaining: $paternityRemaining
+    paternityUsed: $paternityUsed
+    unpaidUsed: $unpaidUsed
+    studyUsed: $studyUsed
+    studyRemaining: $studyRemaining
+    studyCredit: $studyCredit
+  ) {
+    unpaidUsed
+    studyUsed
+    studyRemaining
+    studyCredit
+    paternityUsed
+    paternityRemaining
+    paternityCredit
+    maternityUsed
+    maternityRemaining
+    maternityCredit
+    healthUsed
+    healthRemaining
+    healthCredit
+    familyUsed
+    familyRemaining
+    familyCredit
+    annualUsed
+    annualRemaining
+    annualCredit
+    userId
+  }
+}
+
+
+query getUserBalances($userId: String!) {
+  getUserBalances(userId: $userId) {
+    annualCredit
+    annualRemaining
+    annualUsed
+    familyCredit
+    familyRemaining
+    familyUsed
+    healthCredit
+    healthRemaining
+    healthUsed
+    id
+    maternityCredit
+    maternityRemaining
+    maternityUsed
+    paternityCredit
+    paternityRemaining
+    paternityUsed
+    studyCredit
+    studyRemaining
+    studyUsed
+    unpaidUsed
+    userId
+  }
+}
+
+
+query getAllBalances {
+  getAllBalances {
+    annualCredit
+    annualUsed
+    annualRemaining
+    id
+    healthUsed
+    healthRemaining
+    healthCredit
+    familyUsed
+    familyRemaining
+    familyCredit
+    maternityCredit
+    maternityRemaining
+    maternityUsed
+    paternityCredit
+    paternityRemaining
+    paternityUsed
+    studyCredit
+    studyRemaining
+    studyUsed
+    unpaidUsed
+    userId
+  }
+}

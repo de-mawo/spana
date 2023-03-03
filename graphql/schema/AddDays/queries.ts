@@ -1,13 +1,11 @@
 import prisma from "../../../lib/prismadb";
 import { builder } from "../../builder";
-import { LeaveType } from "./enum";
+import { LeaveType } from "../Leave/enum";
 
-builder.prismaObject("Leave", {
+builder.prismaObject("AddDays", {
   fields: (t) => ({
     id: t.exposeID("id"),
     type: t.expose("type", { type: LeaveType }),
-    startDate: t.expose("startDate", { type: "DateTime" }),
-    endDate: t.expose("endDate", { type: "DateTime" }),
     daysRequested: t.exposeFloat("daysRequested"),
     requestedAt: t.expose("requestedAt", { type: "DateTime" }),
     requestedBy: t.exposeString("requestedBy"),
@@ -21,38 +19,28 @@ builder.prismaObject("Leave", {
 });
 
 builder.queryFields((t) => ({
-  getLeave: t.prismaField({
-    type: "Leave",
+  getAddDays: t.prismaField({
+    type: "AddDays",
     args: {
       id: t.arg.string({ required: true }),
     },
     resolve: async (query, _, args, context) => {
-      if (!(await context).user) {
-        throw new Error("You have to be logged in to perform this action");
-      }
-      const leave = await prisma.leave.findUnique({
+      // if (!(await context).user) {
+      //   throw new Error("You have to be logged in to perform this action");
+      // }
+      const addDays = await prisma.leave.findUnique({
         ...query,
         where: { id: args.id },
       });
-      if (!leave) {
-        throw new Error("Leave not found");
+      if (!addDays) {
+        throw new Error("AddDays not found");
       }
-      return leave;
+      return addDays;
     },
   }),
 
-  getAllLeaves: t.prismaField({
-    type: ["Leave"],
+  getAllAddDays: t.prismaField({
+    type: ["AddDays"],
     resolve: (query) => prisma.leave.findMany(query),
   }),
-
-  getUnModeratedLeaves: t.prismaField({
-    type: ["Leave"],
-    resolve: (query) => prisma.leave.findMany({
-      ...query,
-      where: {moderatedBy: {
-        equals: "null"
-      }}
-    }),
-  })
 }));

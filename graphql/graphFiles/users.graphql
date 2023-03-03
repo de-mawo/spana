@@ -1,9 +1,27 @@
-query Query {
+query getUsers {
   getUsers {
     email
     id
     image
     name
     role
+  }
+}
+
+query getUser($email: String!) {
+  getUser(email: $email) {
+    email
+    id
+    image
+    name
+    role
+  }
+}
+
+mutation EditUser($editUserId: String!, $role: Role!) {
+  EditUser(id: $editUserId, role: $role) {
+    id
+    role
+    name
   }
 }
