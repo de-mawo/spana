@@ -184,6 +184,7 @@ export type Query = {
   getUnModeratedLeaves: Array<Leave>;
   getUser: User;
   getUserBalances: Balances;
+  getUserLeaves: Array<Leave>;
   getUsers: Array<User>;
 };
 
@@ -205,6 +206,11 @@ export type QueryGetUserArgs = {
 
 export type QueryGetUserBalancesArgs = {
   userId: Scalars['String'];
+};
+
+
+export type QueryGetUserLeavesArgs = {
+  email: Scalars['String'];
 };
 
 /** User Role */
@@ -279,6 +285,13 @@ export type GetLeaveQueryVariables = Exact<{
 
 
 export type GetLeaveQuery = { __typename?: 'Query', getLeave: { __typename?: 'Leave', approved?: boolean | null, daysRequested: number, endDate: any, id: string, moderatedBy: string, moderatorNote?: string | null, rejected?: boolean | null, requestedAt: any, requestedBy: string, requesterEmail: string, requesterNote?: string | null, startDate: any, type: LeaveType } };
+
+export type GetUserLeavesQueryVariables = Exact<{
+  email: Scalars['String'];
+}>;
+
+
+export type GetUserLeavesQuery = { __typename?: 'Query', getUserLeaves: Array<{ __typename?: 'Leave', id: string, endDate: any, daysRequested: number, approved?: boolean | null, startDate: any, type: LeaveType, rejected?: boolean | null, moderatorNote?: string | null, moderatedBy: string, requestedAt: any }> };
 
 export type GetAllLeavesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -494,6 +507,26 @@ export const GetLeaveDocument = gql`
 
 export function useGetLeaveQuery(options: Omit<Urql.UseQueryArgs<GetLeaveQueryVariables>, 'query'>) {
   return Urql.useQuery<GetLeaveQuery, GetLeaveQueryVariables>({ query: GetLeaveDocument, ...options });
+};
+export const GetUserLeavesDocument = gql`
+    query GetUserLeaves($email: String!) {
+  getUserLeaves(email: $email) {
+    id
+    endDate
+    daysRequested
+    approved
+    startDate
+    type
+    rejected
+    moderatorNote
+    moderatedBy
+    requestedAt
+  }
+}
+    `;
+
+export function useGetUserLeavesQuery(options: Omit<Urql.UseQueryArgs<GetUserLeavesQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetUserLeavesQuery, GetUserLeavesQueryVariables>({ query: GetUserLeavesDocument, ...options });
 };
 export const GetAllLeavesDocument = gql`
     query getAllLeaves {

@@ -41,6 +41,24 @@ builder.queryFields((t) => ({
     },
   }),
 
+  getUserLeaves: t.prismaField({
+    type: ["Leave"],
+    args: {
+      email: t.arg.string({required: true})
+    },
+    resolve: async(query, _, args, context) => {
+    const leaves = await  prisma.leave.findMany({
+        ...query,
+        where: {requesterEmail: args.email},
+        orderBy: [
+          { requestedAt: 'desc'}
+        ]
+      })
+      return leaves
+
+    } 
+  }),
+
   getAllLeaves: t.prismaField({
     type: ["Leave"],
     resolve: (query) => prisma.leave.findMany(query),

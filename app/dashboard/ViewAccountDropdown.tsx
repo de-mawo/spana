@@ -42,7 +42,7 @@ const ViewAccountDropdown = () => {
               <span className="pl-4">Profile </span>
             </Link>
             <button className="flex items-center py-4 pl-3 rounded-md text-deep-sapphire-900 transition-all hover:bg-deep-sapphire-300 hover:text-white dark:text-gray-300 dark:hover:bg-slate-700"
-            onClick={() => signOut({ callbackUrl: 'http://localhost:3000' })}
+            onClick={() => signOut({ callbackUrl: '/' })}
             >
               <HiOutlineArrowRightOnRectangle className="h-6 w-6 mr-4 shrink-0" />
               <span className="pl-4">Sign Out </span>

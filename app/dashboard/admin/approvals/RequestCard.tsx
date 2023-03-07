@@ -6,6 +6,7 @@ import {
   HiOutlineHandThumbDown,
   HiOutlineHandThumbUp,
 } from "react-icons/hi2";
+import { Requests } from "../../../../types";
 type Props = {
   requested: Requests;
   onClick: () => void;
@@ -29,13 +30,13 @@ const RequestCard = ({ requested, onClick }: Props) => {
         <div className="flex justify-between items-center my-2 border-t pt-1 border-t-gray-400">
           <p className=" ">
             {" "}
-            {requested?.startDate} - {requested.endDate}{" "}
+            {new Date(requested?.startDate).toLocaleDateString()} - {new Date(requested.endDate).toLocaleDateString()}{" "}
           </p>
-          <p className="text-center"> {requested.days_taken} days</p>
+          <p className="text-center"> {requested.daysRequested} days</p>
         </div>
         <div className="flex  items-center my-3 border-t pt-1 border-t-gray-400">
           <HiOutlineChatBubbleOvalLeft className="h-6 w-6 text-deep-sapphire-600 mr-2 dark:text-gray-300" />
-          <p> {requested.Note}</p>
+          <p> {requested.requesterNote}</p>
         </div>
         <div className="">
           <button

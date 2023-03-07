@@ -1,17 +1,21 @@
 "use client";
 
 import { useSession } from "next-auth/react";
+import { withUrqlClient } from "next-urql";
 import { FormEvent, useState } from "react";
 import { GoChevronDown } from "react-icons/go";
 import Datepicker from "react-tailwindcss-datepicker";
+import { LeaveType, useAddLeaveMutation } from "../../../graphql/generated";
+import { createUrqlClient } from "../../../lib/createUrqlClient";
+import toast, { Toaster } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const Request = () => {
+  const { data } = useSession();
 
-  const {data} = useSession()
-
-  const name = data?.user?.name as string
-  const email = data?.user?.email as string
-
+  const name = data?.user?.name as string;
+  const email = data?.user?.email as string;
+  const router = useRouter();
 
   const options = [
     "ANNUAL",
@@ -20,7 +24,7 @@ const Request = () => {
     "MATERNITY",
     "UNPAID",
     "FAMILY",
-    "PATERNITY"
+    "PATERNITY",
   ];
   const options2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
 
@@ -37,15 +41,42 @@ const Request = () => {
     setValue(newValue);
   };
 
-  const {startDate, endDate} = value
+  const { startDate, endDate } = value;
+
+  const [, createRequest] = useAddLeaveMutation();
 
   const RequestLeave = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(selectLeave, startDate, endDate,numberOfDays,  notes, name, email);
+    console.log(
+      selectLeave,
+      startDate,
+      endDate,
+      numberOfDays,
+      notes,
+      name,
+      email
+    );
+    createRequest({
+      daysRequested: numberOfDays,
+      endDate: endDate!,
+      requestedBy: name,
+      requesterEmail: email,
+      startDate: startDate!,
+      type: selectLeave as LeaveType,
+      requesterNote: notes,
+    }).then(async (res) => {
+      if (res.data?.AddLeave) {
+        toast.success("Request sent Successfully");
+      }
+      if (res.error) {
+        toast.error("An error occured: ");
+      }
+    });
   };
 
   return (
     <div className="  rounded-lg shadow-2xl p-6 dark:border dark:border-gray-700">
+      <Toaster />
       <h2 className="text-center  mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
         Request a leave
       </h2>
@@ -132,4 +163,4 @@ const Request = () => {
   );
 };
 
-export default Request;
+export default withUrqlClient(createUrqlClient)(Request);

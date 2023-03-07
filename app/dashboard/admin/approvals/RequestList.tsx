@@ -1,16 +1,14 @@
 "use client";
 
 import { withUrqlClient } from "next-urql";
-import React from "react";
-import { useGetUnModeratedLeavesQuery } from "../../../graphql/generated";
-import { createUrqlClient } from "../../../lib/createUrqlClient";
-import LoadingComponent from "../../LoadingComponent";
+import { useGetUnModeratedLeavesQuery } from "../../../../graphql/generated";
+import { createUrqlClient } from "../../../../lib/createUrqlClient";
+import LoadingComponent from "../../../LoadingComponent";
 import RequestModal from "./RequestModal";
 
 const RequestList = () => {
-  const [res] = useGetUnModeratedLeavesQuery();
+  const [{ data, fetching, error }] = useGetUnModeratedLeavesQuery();
 
-  const { data, fetching, error } = res;
 
   console.log(data);
 

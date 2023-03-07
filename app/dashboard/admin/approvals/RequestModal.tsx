@@ -3,7 +3,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment, useState } from "react";
 import { HiOutlineHandThumbDown, HiOutlineHandThumbUp } from "react-icons/hi2";
-import { Requests } from "../../../types";
+import { Requests } from "../../../../types";
 import RequestCard from "./RequestCard";
 
 type Props = {

@@ -20,7 +20,7 @@ builder.mutationFields((t) => ({
       //   throw new Error("You have to be logged in to perform this action");
       // }
 
-      //TODO: Use Moment.js or Luxon to work with these dates
+      //TODO: Verify if the DB time when saving arequest is correct
       const changeStartDate = args.startDate;
       const startDateObject = new Date(changeStartDate);
       // const formattedStartDate = startDateObject.toISOString();
@@ -30,15 +30,20 @@ builder.mutationFields((t) => ({
       const endDateObject = new Date(changeEndDate);
       const formattedEndDate = moment(endDateObject).format();
 
-      const VerifyStartDate = await prisma.leave.findFirst({
-        ...query,
-        where: { startDate: formattedStartDate },
-      });
-
       //TODO : write a function to Verify User Here and reject request if same user is requesting same date
 
-      if (VerifyStartDate) {
-        throw new Error("Choose another date");
+      // Check if user has already requested leave for the same dates
+      const VerifyUser = await prisma.leave.findFirst({
+        ...query,
+        where: {
+          requesterEmail: args.requesterEmail,
+          startDate: formattedStartDate,
+          endDate: formattedEndDate,
+        },
+      });
+
+      if (VerifyUser) {
+        throw new Error("You have already requested leave for these dates");
       }
 
       const newRequest = await prisma.leave.create({

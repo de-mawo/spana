@@ -16,6 +16,21 @@ query getLeave($getLeaveId: String!) {
   }
 }
 
+query GetUserLeaves($email: String!) {
+  getUserLeaves(email: $email) {
+    id
+    endDate
+    daysRequested
+    approved
+    startDate
+    type
+    rejected
+    moderatorNote
+    moderatedBy
+    requestedAt
+  }
+}
+
 query getAllLeaves {
   getAllLeaves {
     approved

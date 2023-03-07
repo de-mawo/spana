@@ -1,5 +1,5 @@
 
-import { users } from "../../../data/users";
+import { users } from "../../../../data/users";
 
 import UserTable from "./UserTable";
 

@@ -3,9 +3,9 @@ import { leavebalances } from "../../../data/leaveData";
 
 const LeaveBalances = () => {
   return (
-    <div className="  rounded-lg shadow-2xl p-6 dark:border dark:border-gray-700">
+    <div className=" my-12 rounded-lg shadow-2xl p-6 dark:border dark:border-gray-700">
       <h2 className="text-center  mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-        Leave Balances
+       My Leave Balances
       </h2>
 
       <div className="relative overflow-x-auto">

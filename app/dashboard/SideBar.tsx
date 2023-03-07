@@ -53,7 +53,7 @@ const SideBar = ({ show, showSideBar }: Props) => {
         </div>
 
         <button
-         onClick={() => signOut({ callbackUrl: 'http://localhost:3000' })}
+         onClick={() => signOut({ callbackUrl: '/' })}
           className="flex items-center py-2 pl-3 text-deep-sapphire-900 transition-all hover:bg-deep-sapphire-300 hover:text-white dark:text-gray-300 dark:hover:bg-gray-600"
         >
           {" "}
