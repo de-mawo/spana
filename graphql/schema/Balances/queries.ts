@@ -23,6 +23,7 @@ builder.prismaObject("Balances", {
     paternityUsed: t.exposeFloat("paternityUsed", { nullable: true }),
     paternityRemaining: t.exposeFloat("paternityRemaining", { nullable: true }),
     unpaidUsed: t.exposeFloat("unpaidUsed", { nullable: true }),
+    name: t.exposeString("name"),
     userId: t.exposeString("userId"),
   }),
 });

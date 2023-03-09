@@ -46,6 +46,7 @@ export type Balances = {
   maternityCredit?: Maybe<Scalars['Float']>;
   maternityRemaining?: Maybe<Scalars['Float']>;
   maternityUsed?: Maybe<Scalars['Float']>;
+  name: Scalars['String'];
   paternityCredit?: Maybe<Scalars['Float']>;
   paternityRemaining?: Maybe<Scalars['Float']>;
   paternityUsed?: Maybe<Scalars['Float']>;
@@ -62,6 +63,7 @@ export type Leave = {
   daysRequested: Scalars['Float'];
   endDate: Scalars['DateTime'];
   id: Scalars['ID'];
+  link?: Maybe<Scalars['String']>;
   moderatedBy: Scalars['String'];
   moderatorNote?: Maybe<Scalars['String']>;
   rejected?: Maybe<Scalars['Boolean']>;
@@ -101,6 +103,7 @@ export type MutationAddBalancesArgs = {
   familyCredit?: InputMaybe<Scalars['Float']>;
   healthCredit?: InputMaybe<Scalars['Float']>;
   maternityCredit?: InputMaybe<Scalars['Float']>;
+  name: Scalars['String'];
   paternityCredit?: InputMaybe<Scalars['Float']>;
   studyCredit?: InputMaybe<Scalars['Float']>;
   userId: Scalars['String'];
@@ -119,6 +122,7 @@ export type MutationAddDaysArgs = {
 export type MutationAddLeaveArgs = {
   daysRequested: Scalars['Float'];
   endDate: Scalars['String'];
+  link?: InputMaybe<Scalars['String']>;
   requestedBy: Scalars['String'];
   requesterEmail: Scalars['String'];
   requesterNote?: InputMaybe<Scalars['String']>;
@@ -229,25 +233,26 @@ export type User = {
 };
 
 export type AddBalancesMutationVariables = Exact<{
+  name: Scalars['String'];
   userId: Scalars['String'];
   annualCredit?: InputMaybe<Scalars['Float']>;
   familyCredit?: InputMaybe<Scalars['Float']>;
   healthCredit?: InputMaybe<Scalars['Float']>;
   maternityCredit?: InputMaybe<Scalars['Float']>;
-  paternityCredit?: InputMaybe<Scalars['Float']>;
   studyCredit?: InputMaybe<Scalars['Float']>;
+  paternityCredit?: InputMaybe<Scalars['Float']>;
 }>;
 
 
-export type AddBalancesMutation = { __typename?: 'Mutation', AddBalances: { __typename?: 'Balances', annualCredit?: number | null, familyCredit?: number | null, healthCredit?: number | null, maternityCredit?: number | null, paternityCredit?: number | null, studyCredit?: number | null } };
+export type AddBalancesMutation = { __typename?: 'Mutation', AddBalances: { __typename?: 'Balances', id: string } };
 
 export type EditBalancesMutationVariables = Exact<{
   editBalancesId: Scalars['String'];
   annualCredit?: InputMaybe<Scalars['Float']>;
   annualRemaining?: InputMaybe<Scalars['Float']>;
-  annualUsed?: InputMaybe<Scalars['Float']>;
-  familyCredit?: InputMaybe<Scalars['Float']>;
   familyRemaining?: InputMaybe<Scalars['Float']>;
+  familyCredit?: InputMaybe<Scalars['Float']>;
+  annualUsed?: InputMaybe<Scalars['Float']>;
   familyUsed?: InputMaybe<Scalars['Float']>;
   healthCredit?: InputMaybe<Scalars['Float']>;
   healthRemaining?: InputMaybe<Scalars['Float']>;
@@ -258,50 +263,50 @@ export type EditBalancesMutationVariables = Exact<{
   paternityCredit?: InputMaybe<Scalars['Float']>;
   paternityRemaining?: InputMaybe<Scalars['Float']>;
   paternityUsed?: InputMaybe<Scalars['Float']>;
-  unpaidUsed?: InputMaybe<Scalars['Float']>;
-  studyUsed?: InputMaybe<Scalars['Float']>;
-  studyRemaining?: InputMaybe<Scalars['Float']>;
   studyCredit?: InputMaybe<Scalars['Float']>;
+  studyRemaining?: InputMaybe<Scalars['Float']>;
+  studyUsed?: InputMaybe<Scalars['Float']>;
+  unpaidUsed?: InputMaybe<Scalars['Float']>;
 }>;
 
 
-export type EditBalancesMutation = { __typename?: 'Mutation', EditBalances: { __typename?: 'Balances', unpaidUsed?: number | null, studyUsed?: number | null, studyRemaining?: number | null, studyCredit?: number | null, paternityUsed?: number | null, paternityRemaining?: number | null, paternityCredit?: number | null, maternityUsed?: number | null, maternityRemaining?: number | null, maternityCredit?: number | null, healthUsed?: number | null, healthRemaining?: number | null, healthCredit?: number | null, familyUsed?: number | null, familyRemaining?: number | null, familyCredit?: number | null, annualUsed?: number | null, annualRemaining?: number | null, annualCredit?: number | null, userId: string } };
+export type EditBalancesMutation = { __typename?: 'Mutation', EditBalances: { __typename?: 'Balances', id: string } };
 
 export type GetUserBalancesQueryVariables = Exact<{
   userId: Scalars['String'];
 }>;
 
 
-export type GetUserBalancesQuery = { __typename?: 'Query', getUserBalances: { __typename?: 'Balances', annualCredit?: number | null, annualRemaining?: number | null, annualUsed?: number | null, familyCredit?: number | null, familyRemaining?: number | null, familyUsed?: number | null, healthCredit?: number | null, healthRemaining?: number | null, healthUsed?: number | null, id: string, maternityCredit?: number | null, maternityRemaining?: number | null, maternityUsed?: number | null, paternityCredit?: number | null, paternityRemaining?: number | null, paternityUsed?: number | null, studyCredit?: number | null, studyRemaining?: number | null, studyUsed?: number | null, unpaidUsed?: number | null, userId: string } };
+export type GetUserBalancesQuery = { __typename?: 'Query', getUserBalances: { __typename?: 'Balances', annualCredit?: number | null, annualRemaining?: number | null, annualUsed?: number | null, familyCredit?: number | null, familyRemaining?: number | null, familyUsed?: number | null, healthCredit?: number | null, healthRemaining?: number | null, healthUsed?: number | null, id: string, name: string, maternityCredit?: number | null, maternityRemaining?: number | null, maternityUsed?: number | null, paternityCredit?: number | null, paternityRemaining?: number | null, paternityUsed?: number | null, studyCredit?: number | null, studyRemaining?: number | null, studyUsed?: number | null, unpaidUsed?: number | null, userId: string } };
 
 export type GetAllBalancesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllBalancesQuery = { __typename?: 'Query', getAllBalances: Array<{ __typename?: 'Balances', annualCredit?: number | null, annualUsed?: number | null, annualRemaining?: number | null, id: string, healthUsed?: number | null, healthRemaining?: number | null, healthCredit?: number | null, familyUsed?: number | null, familyRemaining?: number | null, familyCredit?: number | null, maternityCredit?: number | null, maternityRemaining?: number | null, maternityUsed?: number | null, paternityCredit?: number | null, paternityRemaining?: number | null, paternityUsed?: number | null, studyCredit?: number | null, studyRemaining?: number | null, studyUsed?: number | null, unpaidUsed?: number | null, userId: string }> };
+export type GetAllBalancesQuery = { __typename?: 'Query', getAllBalances: Array<{ __typename?: 'Balances', annualCredit?: number | null, annualUsed?: number | null, annualRemaining?: number | null, id: string, name: string, healthUsed?: number | null, healthRemaining?: number | null, healthCredit?: number | null, familyUsed?: number | null, familyRemaining?: number | null, familyCredit?: number | null, maternityCredit?: number | null, maternityRemaining?: number | null, maternityUsed?: number | null, paternityCredit?: number | null, paternityRemaining?: number | null, paternityUsed?: number | null, studyCredit?: number | null, studyRemaining?: number | null, studyUsed?: number | null, unpaidUsed?: number | null, userId: string }> };
 
 export type GetLeaveQueryVariables = Exact<{
   getLeaveId: Scalars['String'];
 }>;
 
 
-export type GetLeaveQuery = { __typename?: 'Query', getLeave: { __typename?: 'Leave', approved?: boolean | null, daysRequested: number, endDate: any, id: string, moderatedBy: string, moderatorNote?: string | null, rejected?: boolean | null, requestedAt: any, requestedBy: string, requesterEmail: string, requesterNote?: string | null, startDate: any, type: LeaveType } };
+export type GetLeaveQuery = { __typename?: 'Query', getLeave: { __typename?: 'Leave', approved?: boolean | null, daysRequested: number, endDate: any, id: string, link?: string | null, moderatedBy: string, moderatorNote?: string | null, rejected?: boolean | null, requestedAt: any, requestedBy: string, requesterEmail: string, requesterNote?: string | null, startDate: any, type: LeaveType } };
 
 export type GetUserLeavesQueryVariables = Exact<{
   email: Scalars['String'];
 }>;
 
 
-export type GetUserLeavesQuery = { __typename?: 'Query', getUserLeaves: Array<{ __typename?: 'Leave', id: string, endDate: any, daysRequested: number, approved?: boolean | null, startDate: any, type: LeaveType, rejected?: boolean | null, moderatorNote?: string | null, moderatedBy: string, requestedAt: any }> };
+export type GetUserLeavesQuery = { __typename?: 'Query', getUserLeaves: Array<{ __typename?: 'Leave', id: string, link?: string | null, endDate: any, daysRequested: number, approved?: boolean | null, startDate: any, type: LeaveType, rejected?: boolean | null, moderatorNote?: string | null, moderatedBy: string, requestedAt: any }> };
 
 export type GetAllLeavesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllLeavesQuery = { __typename?: 'Query', getAllLeaves: Array<{ __typename?: 'Leave', approved?: boolean | null, daysRequested: number, endDate: any, id: string, moderatedBy: string, moderatorNote?: string | null, rejected?: boolean | null, requestedAt: any, requestedBy: string, requesterEmail: string, requesterNote?: string | null, startDate: any, type: LeaveType }> };
+export type GetAllLeavesQuery = { __typename?: 'Query', getAllLeaves: Array<{ __typename?: 'Leave', approved?: boolean | null, daysRequested: number, endDate: any, id: string, link?: string | null, moderatedBy: string, moderatorNote?: string | null, rejected?: boolean | null, requestedAt: any, requestedBy: string, requesterEmail: string, requesterNote?: string | null, startDate: any, type: LeaveType }> };
 
 export type GetUnModeratedLeavesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetUnModeratedLeavesQuery = { __typename?: 'Query', getUnModeratedLeaves: Array<{ __typename?: 'Leave', moderatedBy: string, daysRequested: number, endDate: any, id: string, requestedAt: any, requestedBy: string, requesterNote?: string | null, startDate: any, type: LeaveType }> };
+export type GetUnModeratedLeavesQuery = { __typename?: 'Query', getUnModeratedLeaves: Array<{ __typename?: 'Leave', moderatedBy: string, daysRequested: number, endDate: any, id: string, link?: string | null, requestedAt: any, requestedBy: string, requesterNote?: string | null, startDate: any, type: LeaveType }> };
 
 export type AddLeaveMutationVariables = Exact<{
   daysRequested: Scalars['Float'];
@@ -310,11 +315,12 @@ export type AddLeaveMutationVariables = Exact<{
   requesterEmail: Scalars['String'];
   startDate: Scalars['String'];
   type: LeaveType;
+  link?: InputMaybe<Scalars['String']>;
   requesterNote?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type AddLeaveMutation = { __typename?: 'Mutation', AddLeave: { __typename?: 'Leave', approved?: boolean | null, daysRequested: number, endDate: any, id: string, requestedBy: string, requesterEmail: string, requesterNote?: string | null, startDate: any, type: LeaveType } };
+export type AddLeaveMutation = { __typename?: 'Mutation', AddLeave: { __typename?: 'Leave', id: string } };
 
 export type EditLeaveMutationVariables = Exact<{
   editLeaveId: Scalars['String'];
@@ -349,22 +355,18 @@ export type EditUserMutation = { __typename?: 'Mutation', EditUser: { __typename
 
 
 export const AddBalancesDocument = gql`
-    mutation AddBalances($userId: String!, $annualCredit: Float, $familyCredit: Float, $healthCredit: Float, $maternityCredit: Float, $paternityCredit: Float, $studyCredit: Float) {
+    mutation AddBalances($name: String!, $userId: String!, $annualCredit: Float, $familyCredit: Float, $healthCredit: Float, $maternityCredit: Float, $studyCredit: Float, $paternityCredit: Float) {
   AddBalances(
+    name: $name
     userId: $userId
     annualCredit: $annualCredit
     familyCredit: $familyCredit
     healthCredit: $healthCredit
     maternityCredit: $maternityCredit
-    paternityCredit: $paternityCredit
     studyCredit: $studyCredit
+    paternityCredit: $paternityCredit
   ) {
-    annualCredit
-    familyCredit
-    healthCredit
-    maternityCredit
-    paternityCredit
-    studyCredit
+    id
   }
 }
     `;
@@ -373,14 +375,14 @@ export function useAddBalancesMutation() {
   return Urql.useMutation<AddBalancesMutation, AddBalancesMutationVariables>(AddBalancesDocument);
 };
 export const EditBalancesDocument = gql`
-    mutation EditBalances($editBalancesId: String!, $annualCredit: Float, $annualRemaining: Float, $annualUsed: Float, $familyCredit: Float, $familyRemaining: Float, $familyUsed: Float, $healthCredit: Float, $healthRemaining: Float, $healthUsed: Float, $maternityCredit: Float, $maternityRemaining: Float, $maternityUsed: Float, $paternityCredit: Float, $paternityRemaining: Float, $paternityUsed: Float, $unpaidUsed: Float, $studyUsed: Float, $studyRemaining: Float, $studyCredit: Float) {
+    mutation EditBalances($editBalancesId: String!, $annualCredit: Float, $annualRemaining: Float, $familyRemaining: Float, $familyCredit: Float, $annualUsed: Float, $familyUsed: Float, $healthCredit: Float, $healthRemaining: Float, $healthUsed: Float, $maternityCredit: Float, $maternityRemaining: Float, $maternityUsed: Float, $paternityCredit: Float, $paternityRemaining: Float, $paternityUsed: Float, $studyCredit: Float, $studyRemaining: Float, $studyUsed: Float, $unpaidUsed: Float) {
   EditBalances(
     id: $editBalancesId
     annualCredit: $annualCredit
     annualRemaining: $annualRemaining
-    annualUsed: $annualUsed
-    familyCredit: $familyCredit
     familyRemaining: $familyRemaining
+    familyCredit: $familyCredit
+    annualUsed: $annualUsed
     familyUsed: $familyUsed
     healthCredit: $healthCredit
     healthRemaining: $healthRemaining
@@ -391,31 +393,12 @@ export const EditBalancesDocument = gql`
     paternityCredit: $paternityCredit
     paternityRemaining: $paternityRemaining
     paternityUsed: $paternityUsed
-    unpaidUsed: $unpaidUsed
-    studyUsed: $studyUsed
-    studyRemaining: $studyRemaining
     studyCredit: $studyCredit
+    studyRemaining: $studyRemaining
+    studyUsed: $studyUsed
+    unpaidUsed: $unpaidUsed
   ) {
-    unpaidUsed
-    studyUsed
-    studyRemaining
-    studyCredit
-    paternityUsed
-    paternityRemaining
-    paternityCredit
-    maternityUsed
-    maternityRemaining
-    maternityCredit
-    healthUsed
-    healthRemaining
-    healthCredit
-    familyUsed
-    familyRemaining
-    familyCredit
-    annualUsed
-    annualRemaining
-    annualCredit
-    userId
+    id
   }
 }
     `;
@@ -436,6 +419,7 @@ export const GetUserBalancesDocument = gql`
     healthRemaining
     healthUsed
     id
+    name
     maternityCredit
     maternityRemaining
     maternityUsed
@@ -461,6 +445,7 @@ export const GetAllBalancesDocument = gql`
     annualUsed
     annualRemaining
     id
+    name
     healthUsed
     healthRemaining
     healthCredit
@@ -492,6 +477,7 @@ export const GetLeaveDocument = gql`
     daysRequested
     endDate
     id
+    link
     moderatedBy
     moderatorNote
     rejected
@@ -512,6 +498,7 @@ export const GetUserLeavesDocument = gql`
     query GetUserLeaves($email: String!) {
   getUserLeaves(email: $email) {
     id
+    link
     endDate
     daysRequested
     approved
@@ -535,6 +522,7 @@ export const GetAllLeavesDocument = gql`
     daysRequested
     endDate
     id
+    link
     moderatedBy
     moderatorNote
     rejected
@@ -558,6 +546,7 @@ export const GetUnModeratedLeavesDocument = gql`
     daysRequested
     endDate
     id
+    link
     requestedAt
     requestedBy
     requesterNote
@@ -571,7 +560,7 @@ export function useGetUnModeratedLeavesQuery(options?: Omit<Urql.UseQueryArgs<Ge
   return Urql.useQuery<GetUnModeratedLeavesQuery, GetUnModeratedLeavesQueryVariables>({ query: GetUnModeratedLeavesDocument, ...options });
 };
 export const AddLeaveDocument = gql`
-    mutation AddLeave($daysRequested: Float!, $endDate: String!, $requestedBy: String!, $requesterEmail: String!, $startDate: String!, $type: LeaveType!, $requesterNote: String) {
+    mutation AddLeave($daysRequested: Float!, $endDate: String!, $requestedBy: String!, $requesterEmail: String!, $startDate: String!, $type: LeaveType!, $link: String, $requesterNote: String) {
   AddLeave(
     daysRequested: $daysRequested
     endDate: $endDate
@@ -579,17 +568,10 @@ export const AddLeaveDocument = gql`
     requesterEmail: $requesterEmail
     startDate: $startDate
     type: $type
+    link: $link
     requesterNote: $requesterNote
   ) {
-    approved
-    daysRequested
-    endDate
     id
-    requestedBy
-    requesterEmail
-    requesterNote
-    startDate
-    type
   }
 }
     `;

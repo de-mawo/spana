@@ -2,7 +2,7 @@ import { GetUnModeratedLeavesQuery } from "./graphql/generated";
 
 export type Requests = GetUnModeratedLeavesQuery["getUnModeratedLeaves"][0]
 
-type Events = {
+export type Events = {
   name: string;
   date: string;
   employee: string;

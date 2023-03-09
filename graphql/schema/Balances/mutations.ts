@@ -12,6 +12,7 @@ builder.mutationFields((t) => ({
       familyCredit: t.arg.float({}),
       paternityCredit: t.arg.float({}),
       userId: t.arg.string({ required: true }),
+      name: t.arg.string({required: true})
     },
     resolve: async (query, _, args, context) => {
       const newBalances = await prisma.balances.create({

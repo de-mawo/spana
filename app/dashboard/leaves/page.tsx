@@ -11,7 +11,7 @@ const Leaves = () => {
         <AddMyDays/>
       </div>
       
-        <LeaveBalances />
+        <LeaveBalances pageProps={undefined} />
     </>
   );
 };

@@ -7,6 +7,7 @@ import {
   HiOutlineChevronDoubleRight,
 } from "react-icons/hi2";
 import { AdminRoutes } from "./routes";
+import { MemoizedTooltip } from "../DashTooltip";
 
 type Props = {
   show: boolean;
@@ -15,12 +16,11 @@ type Props = {
 
 const SideBar = ({ show, showSideBar }: Props) => {
   const pathname = usePathname();
-  console.log(pathname);
-
+  
   return (
     <aside className={`dash_sidebar ${show && "md:w-[14rem]"}`}>
       <HiOutlineChevronDoubleRight
-        className={`bg-white text-deep-sapphire-900
+        className={`bg-white text-deep-sapphire-900 hidden md:block
        text-3xl rounded-full
        absolute -right-3 top-9 border  border-deep-sapphire-900 cursor-pointer dark:text-gray-600 dark:border-gray-600 ${
          !show && "rotate-180"
@@ -51,10 +51,13 @@ const SideBar = ({ show, showSideBar }: Props) => {
                 }
                 key={index}
               >
+                <MemoizedTooltip text={route.title}>
                 {route.icon}
                 <span className={`pl-4 ${!show && "hidden"}`}>
                   {route.title}{" "}
                 </span>
+                </MemoizedTooltip>
+                
               </Link>
             ))}
           </div>

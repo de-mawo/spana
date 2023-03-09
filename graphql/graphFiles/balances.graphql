@@ -1,27 +1,24 @@
 mutation AddBalances(
+  $name: String!
   $userId: String!
   $annualCredit: Float
   $familyCredit: Float
   $healthCredit: Float
   $maternityCredit: Float
-  $paternityCredit: Float
   $studyCredit: Float
+  $paternityCredit: Float
 ) {
   AddBalances(
+    name: $name
     userId: $userId
     annualCredit: $annualCredit
     familyCredit: $familyCredit
     healthCredit: $healthCredit
     maternityCredit: $maternityCredit
-    paternityCredit: $paternityCredit
     studyCredit: $studyCredit
+    paternityCredit: $paternityCredit
   ) {
-    annualCredit
-    familyCredit
-    healthCredit
-    maternityCredit
-    paternityCredit
-    studyCredit
+    id
   }
 }
 
@@ -29,9 +26,9 @@ mutation EditBalances(
   $editBalancesId: String!
   $annualCredit: Float
   $annualRemaining: Float
-  $annualUsed: Float
-  $familyCredit: Float
   $familyRemaining: Float
+  $familyCredit: Float
+  $annualUsed: Float
   $familyUsed: Float
   $healthCredit: Float
   $healthRemaining: Float
@@ -42,18 +39,18 @@ mutation EditBalances(
   $paternityCredit: Float
   $paternityRemaining: Float
   $paternityUsed: Float
-  $unpaidUsed: Float
-  $studyUsed: Float
-  $studyRemaining: Float
   $studyCredit: Float
+  $studyRemaining: Float
+  $studyUsed: Float
+  $unpaidUsed: Float
 ) {
   EditBalances(
     id: $editBalancesId
     annualCredit: $annualCredit
     annualRemaining: $annualRemaining
-    annualUsed: $annualUsed
-    familyCredit: $familyCredit
     familyRemaining: $familyRemaining
+    familyCredit: $familyCredit
+    annualUsed: $annualUsed
     familyUsed: $familyUsed
     healthCredit: $healthCredit
     healthRemaining: $healthRemaining
@@ -64,34 +61,14 @@ mutation EditBalances(
     paternityCredit: $paternityCredit
     paternityRemaining: $paternityRemaining
     paternityUsed: $paternityUsed
-    unpaidUsed: $unpaidUsed
-    studyUsed: $studyUsed
-    studyRemaining: $studyRemaining
     studyCredit: $studyCredit
+    studyRemaining: $studyRemaining
+    studyUsed: $studyUsed
+    unpaidUsed: $unpaidUsed
   ) {
-    unpaidUsed
-    studyUsed
-    studyRemaining
-    studyCredit
-    paternityUsed
-    paternityRemaining
-    paternityCredit
-    maternityUsed
-    maternityRemaining
-    maternityCredit
-    healthUsed
-    healthRemaining
-    healthCredit
-    familyUsed
-    familyRemaining
-    familyCredit
-    annualUsed
-    annualRemaining
-    annualCredit
-    userId
+    id
   }
 }
-
 
 query getUserBalances($userId: String!) {
   getUserBalances(userId: $userId) {
@@ -105,6 +82,7 @@ query getUserBalances($userId: String!) {
     healthRemaining
     healthUsed
     id
+    name
     maternityCredit
     maternityRemaining
     maternityUsed
@@ -119,13 +97,13 @@ query getUserBalances($userId: String!) {
   }
 }
 
-
 query getAllBalances {
   getAllBalances {
     annualCredit
     annualUsed
     annualRemaining
     id
+    name
     healthUsed
     healthRemaining
     healthCredit

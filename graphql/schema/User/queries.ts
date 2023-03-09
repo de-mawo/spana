@@ -24,7 +24,7 @@ builder.queryFields((t) => ({
     resolve: async (query, _, args, context) => {
       const user = await prisma.user.findUnique({
         ...query,
-        where: { id: args?.email },
+        where: { email: args?.email },
       });
       if (!user) {
         throw new Error("User not found");

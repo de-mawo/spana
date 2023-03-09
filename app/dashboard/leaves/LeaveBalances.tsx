@@ -1,11 +1,26 @@
-import React from "react";
-import { leavebalances } from "../../../data/leaveData";
+"use client";
+import { useSession } from "next-auth/react";
+import { withUrqlClient } from "next-urql";
+import {
+  useGetUserBalancesQuery,
+  useGetUserQuery,
+} from "../../../graphql/generated";
+import { createUrqlClient } from "../../../lib/createUrqlClient";
 
-const LeaveBalances = () => {
+const Leavebalances = () => {
+  const { data: sessionData } = useSession();
+  const email = sessionData?.user?.email as string;
+
+  const [{ data: userData }] = useGetUserQuery({ variables: { email } });
+  const userId = userData?.getUser?.id as string;
+  
+  const [{ data: balanceData }] = useGetUserBalancesQuery({ variables: { userId } });
+  const balance = balanceData?.getUserBalances;
+
   return (
     <div className=" my-12 rounded-lg shadow-2xl p-6 dark:border dark:border-gray-700">
       <h2 className="text-center  mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-       My Leave Balances
+        My Leave balances
       </h2>
 
       <div className="relative overflow-x-auto">
@@ -15,10 +30,7 @@ const LeaveBalances = () => {
               <th scope="col" className="px-6 py-3">
                 Leave Type
               </th>
-              
-              <th scope="col" className="px-6 py-3">
-                Yearly Allocation
-              </th>
+
               <th scope="col" className="px-6 py-3">
                 Total
               </th>
@@ -31,24 +43,90 @@ const LeaveBalances = () => {
             </tr>
           </thead>
           <tbody>
-            {leavebalances.map((bal, index) => (
-              <tr
-                className="bg-white  border-b dark:bg-gray-800 dark:border-gray-700"
-                key={index}
+            <tr className="bg-white  border-b dark:bg-gray-800 dark:border-gray-700">
+              <th
+                scope="row"
+                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
               >
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
-                  {bal.type}
-                </th>
-                
-                <td className="px-6 py-4">{bal.yearly_allocation}</td>
-                <td className="px-6 py-4">{bal.total}</td>
-                <td className="px-6 py-4">{bal.used}</td>
-                <td className="px-6 py-4">{bal.balance}</td>
-              </tr>
-            ))}
+                Annual
+              </th>
+
+              <td className="px-6 py-4">{balance?.annualCredit}</td>
+              <td className="px-6 py-4">{balance?.annualUsed}</td>
+              <td className="px-6 py-4">{balance?.annualRemaining}</td>
+            </tr>
+            <tr className="bg-white  border-b dark:bg-gray-800 dark:border-gray-700">
+              <th
+                scope="row"
+                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+              >
+                Health
+              </th>
+
+              <td className="px-6 py-4">{balance?.healthCredit}</td>
+              <td className="px-6 py-4">{balance?.healthUsed}</td>
+              <td className="px-6 py-4">{balance?.healthRemaining}</td>
+            </tr>
+            <tr className="bg-white  border-b dark:bg-gray-800 dark:border-gray-700">
+              <th
+                scope="row"
+                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+              >
+                Study
+              </th>
+
+              <td className="px-6 py-4">{balance?.studyCredit}</td>
+              <td className="px-6 py-4">{balance?.studyUsed}</td>
+              <td className="px-6 py-4">{balance?.studyRemaining}</td>
+            </tr>
+            <tr className="bg-white  border-b dark:bg-gray-800 dark:border-gray-700">
+              <th
+                scope="row"
+                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+              >
+                Maternity
+              </th>
+
+              <td className="px-6 py-4">{balance?.maternityCredit}</td>
+              <td className="px-6 py-4">{balance?.maternityUsed}</td>
+              <td className="px-6 py-4">{balance?.maternityRemaining}</td>
+            </tr>
+            <tr className="bg-white  border-b dark:bg-gray-800 dark:border-gray-700">
+              <th
+                scope="row"
+                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+              >
+                Unpaid
+              </th>
+
+              <td className="px-6 py-4">{balance?.unpaidUsed}</td>
+              <td className="px-6 py-4">null</td>
+              <td className="px-6 py-4">null</td>
+            </tr>
+            <tr className="bg-white  border-b dark:bg-gray-800 dark:border-gray-700">
+              <th
+                scope="row"
+                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+              >
+                Family
+              </th>
+
+              <td className="px-6 py-4">{balance?.familyCredit}</td>
+              <td className="px-6 py-4">{balance?.familyUsed}</td>
+              <td className="px-6 py-4">{balance?.familyRemaining}</td>
+            </tr>
+            <tr className="bg-white  border-b dark:bg-gray-800 dark:border-gray-700">
+              <th
+                scope="row"
+                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+              >
+                Paternity
+              </th>
+
+              <td className="px-6 py-4">{balance?.paternityCredit}</td>
+              <td className="px-6 py-4">{balance?.paternityUsed}</td>
+              <td className="px-6 py-4">{balance?.paternityRemaining}</td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -56,4 +134,4 @@ const LeaveBalances = () => {
   );
 };
 
-export default LeaveBalances;
+export default withUrqlClient(createUrqlClient)(Leavebalances);

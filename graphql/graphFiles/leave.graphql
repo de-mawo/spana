@@ -4,6 +4,7 @@ query getLeave($getLeaveId: String!) {
     daysRequested
     endDate
     id
+    link
     moderatedBy
     moderatorNote
     rejected
@@ -19,6 +20,7 @@ query getLeave($getLeaveId: String!) {
 query GetUserLeaves($email: String!) {
   getUserLeaves(email: $email) {
     id
+    link
     endDate
     daysRequested
     approved
@@ -37,6 +39,7 @@ query getAllLeaves {
     daysRequested
     endDate
     id
+    link
     moderatedBy
     moderatorNote
     rejected
@@ -51,10 +54,11 @@ query getAllLeaves {
 
 query getUnModeratedLeaves {
   getUnModeratedLeaves {
-   moderatedBy
+    moderatedBy
     daysRequested
     endDate
     id
+    link
     requestedAt
     requestedBy
     requesterNote
@@ -70,6 +74,7 @@ mutation AddLeave(
   $requesterEmail: String!
   $startDate: String!
   $type: LeaveType!
+  $link: String
   $requesterNote: String
 ) {
   AddLeave(
@@ -79,17 +84,10 @@ mutation AddLeave(
     requesterEmail: $requesterEmail
     startDate: $startDate
     type: $type
+    link: $link
     requesterNote: $requesterNote
   ) {
-    approved
-    daysRequested
-    endDate
     id
-    requestedBy
-    requesterEmail
-    requesterNote
-    startDate
-    type
   }
 }
 

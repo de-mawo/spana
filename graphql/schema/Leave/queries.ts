@@ -12,6 +12,7 @@ builder.prismaObject("Leave", {
     requestedAt: t.expose("requestedAt", { type: "DateTime" }),
     requestedBy: t.exposeString("requestedBy"),
     requesterNote: t.exposeString("requesterNote", { nullable: true }),
+    link: t.exposeString("link", { nullable: true }),
     requesterEmail: t.exposeString("requesterEmail"),
     approved: t.exposeBoolean("approved", { nullable: true }),
     rejected: t.exposeBoolean("rejected", { nullable: true }),

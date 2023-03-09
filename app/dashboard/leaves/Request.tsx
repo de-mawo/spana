@@ -31,6 +31,7 @@ const Request = () => {
   const [selectLeave, setSelectLeave] = useState(options[0]);
   const [numberOfDays, setNumberOfDays] = useState(options2[0]);
   const [notes, setNotes] = useState("");
+  const [link, setLink] = useState("");
 
   const [value, setValue] = useState({
     startDate: null,
@@ -47,16 +48,7 @@ const Request = () => {
 
   const RequestLeave = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(
-      selectLeave,
-      startDate,
-      endDate,
-      numberOfDays,
-      notes,
-      name,
-      email
-    );
-    createRequest({
+     createRequest({
       daysRequested: numberOfDays,
       endDate: endDate!,
       requestedBy: name,
@@ -64,6 +56,7 @@ const Request = () => {
       startDate: startDate!,
       type: selectLeave as LeaveType,
       requesterNote: notes,
+      link
     }).then(async (res) => {
       if (res.data?.AddLeave) {
         toast.success("Request sent Successfully");
@@ -141,6 +134,18 @@ const Request = () => {
           showShortcuts={true}
           showFooter={true}
         />
+         <div>
+          <label htmlFor="notes" className="form-label">
+            Link
+          </label>
+          <input
+            id="comment"
+            type="text"
+            className="form-input"
+            value={link}
+            onChange={(e) => setLink(e.target.value)}
+          />
+        </div>
 
         <div>
           <label htmlFor="notes" className="form-label">

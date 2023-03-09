@@ -97,7 +97,7 @@ import { createUrqlClient } from "../../../../lib/createUrqlClient";
                   className="bg-white border-b whitespace-nowrap   dark:bg-slate-900 dark:border-deep-sapphire-700"
                   key={i}
                 >
-                  <td className="px-6 py-3">{balance.userId} </td>
+                  <td className="px-6 py-3">{balance.name} </td>
                   <td className="px-6 py-3">{balance.annualCredit} </td>
                   <td className="px-6 py-3">{balance.annualUsed} </td>
                   <td className="px-6 py-3">{balance.annualRemaining} </td>

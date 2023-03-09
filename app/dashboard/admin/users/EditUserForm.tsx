@@ -3,6 +3,7 @@
 import  { ChangeEvent, useState } from "react";
 import { HiOutlineTrash } from "react-icons/hi2";
 import { GoChevronDown } from "react-icons/go";
+import { User } from "../../../../types";
 
 type Props = {
   

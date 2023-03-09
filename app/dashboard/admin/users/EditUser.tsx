@@ -3,6 +3,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { HiOutlinePencilSquare, HiXMark } from "react-icons/hi2";
+import { User } from "../../../../types";
 import EditUserForm from "./EditUserForm";
 
 type Props = {

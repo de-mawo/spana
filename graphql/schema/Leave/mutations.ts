@@ -14,6 +14,7 @@ builder.mutationFields((t) => ({
       requestedBy: t.arg.string({ required: true }),
       requesterNote: t.arg.string({}),
       requesterEmail: t.arg.string({ required: true }),
+      link: t.arg.string({})
     },
     resolve: async (query, _, args, context) => {
       // if (!(await context).user) {

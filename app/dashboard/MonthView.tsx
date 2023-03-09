@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Events } from "../../types";
 
 type MonthViewProps = {
   events: Events[];

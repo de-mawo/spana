@@ -5,8 +5,8 @@ import { GoGraph } from "react-icons/go";
 export const AdminRoutes = [
     { title: "Dashboard", url: "/dashboard", icon: <HiOutlineSquares2X2 className="h-6 w-6 mr-4 shrink-0"/> },
     { title: "Users", url: "/dashboard/admin/users", icon: <HiOutlineUserGroup className="h-6 w-6 mr-4 shrink-0" /> },
-    { title: "My Leaves", url: "/dashboard/leaves", icon: <RxCounterClockwiseClock className="h-6 w-6 mr-4 shrink-0"/> },
-    { title: "History", url: "/dashboard/history", icon: <HiOutlineCalendarDays className="h-6 w-6 mr-4 shrink-0"/> },
+    { title: "History", url: "/dashboard/history", icon: <RxCounterClockwiseClock className="h-6 w-6 mr-4 shrink-0"/> },
+    { title: "My Leaves", url: "/dashboard/leaves", icon: <HiOutlineCalendarDays className="h-6 w-6 mr-4 shrink-0"/> },
     { title: "Approvals", url: "/dashboard/admin/approvals", icon: <HiOutlineHandThumbUp className="h-6 w-6 mr-4 shrink-0" /> },
     { title: "Balances", url: "/dashboard/admin/balances", icon: <HiOutlineScale className="h-6 w-6 mr-4 shrink-0"/> },
     { title: "Reports", url: "/dashboard/admin/reports", icon: <GoGraph className="h-6 w-6 mr-4 shrink-0"/> },

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
+import { User } from "../../../../types";
 import EditUser from "./EditUser";
 
 type Props = {
