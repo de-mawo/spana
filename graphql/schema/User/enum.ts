@@ -1,6 +1,6 @@
 import { builder } from "../../builder";
 
 export const Role = builder.enumType("Role", {
-    values: ["USER", "ADMIN"],
+    values: ["USER", "ADMIN", "MODERATOR"],
     description: "User Role",
   }); 

@@ -1,4 +1,4 @@
-import { GetUnModeratedLeavesQuery } from "./graphql/generated";
+import { GetUnModeratedLeavesQuery, GetUserQuery } from "./graphql/generated";
 
 export type Requests = GetUnModeratedLeavesQuery["getUnModeratedLeaves"][0]
 
@@ -8,15 +8,7 @@ export type Events = {
   employee: string;
 }
 
-export type User = {
-  id: string;
-  name: string;
-  surname: string;
-  role: string;
-  job_title: string;
-  email: string;
-  avatar: string;
-};
+export type User = GetUserQuery["getUser"]
 
 type AllLeaveBalances = {
   name: string;

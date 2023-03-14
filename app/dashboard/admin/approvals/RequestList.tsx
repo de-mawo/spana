@@ -10,7 +10,6 @@ const RequestList = () => {
   const [{ data, fetching, error }] = useGetUnModeratedLeavesQuery();
 
 
-  console.log(data);
 
   if (fetching) return <LoadingComponent />;
 
@@ -25,7 +24,7 @@ const RequestList = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 py-10 gap-5">
       {data?.getUnModeratedLeaves.map((requested) => (
-        <RequestModal key={requested.id} requested={requested} />
+        <RequestModal key={requested.id} requested={requested} pageProps={undefined} />
       ))}
     </div>
   );

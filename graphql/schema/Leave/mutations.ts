@@ -21,7 +21,8 @@ builder.mutationFields((t) => ({
       //   throw new Error("You have to be logged in to perform this action");
       // }
 
-      //TODO: Verify if the DB time when saving arequest is correct
+      //TODO: Verify if the DB time when saving arequest is correct   
+      //TODO: check out this answer ==> https://stackoverflow.com/questions/74686435/prisma-datetime-format-issue
       const changeStartDate = args.startDate;
       const startDateObject = new Date(changeStartDate);
       // const formattedStartDate = startDateObject.toISOString();
@@ -72,6 +73,8 @@ builder.mutationFields((t) => ({
       // if ((await context).user?.role !== "ADMIN") {
       //   throw new Error("You are not authorized to perform this action");
       // }
+
+      
       const newLeave = await prisma.leave.update({
         where: { id: args.id },
         data: { ...args },

@@ -18,7 +18,7 @@ const MyLeaves = () => {
     return <div>Loading...</div>;
   }
 
-  console.log(data);
+  
   
 
 
