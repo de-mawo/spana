@@ -5,16 +5,30 @@ builder.mutationFields((t) => ({
   AddBalances: t.prismaField({
     type: "Balances",
     args: {
+      period: t.arg.string({required: true}),
       annualCredit: t.arg.float({}),
       healthCredit: t.arg.float({}),
       studyCredit: t.arg.float({}),
       maternityCredit: t.arg.float({}),
       familyCredit: t.arg.float({}),
       paternityCredit: t.arg.float({}),
-      userId: t.arg.string({ required: true }),
+      email: t.arg.string({ required: true }),
       name: t.arg.string({required: true})
     },
     resolve: async (query, _, args, context) => {
+
+      const balances = await prisma.balances.findFirst({
+        ...query,
+        where: {
+          OR: [ {email: args.email}],
+          AND: [{period: args.period}]
+        }
+      })
+
+      if(balances) {
+        throw new Error("Credits for this period have already been added")
+      }
+
       const newBalances = await prisma.balances.create({
         data: { ...args },
       });

@@ -2,7 +2,6 @@
 
 import { useSession } from "next-auth/react";
 import { withUrqlClient } from "next-urql";
-import {  TimeOff } from "../../../data/leaveData";
 import { useGetUserLeavesQuery } from "../../../graphql/generated";
 import { createUrqlClient } from "../../../lib/createUrqlClient";
 
@@ -41,7 +40,7 @@ const MyLeaves = () => {
                 Dates
               </th>
               <th scope="col" className="px-6 py-3">
-                Days Taken
+                Days 
               </th>
               <th scope="col" className="px-6 py-3">
                 Status

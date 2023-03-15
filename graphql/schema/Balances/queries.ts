@@ -4,6 +4,7 @@ import { builder } from "../../builder";
 builder.prismaObject("Balances", {
   fields: (t) => ({
     id: t.exposeID("id"),
+    period: t.exposeString("period"),
     annualCredit: t.exposeFloat("annualCredit", { nullable: true }),
     annualUsed: t.exposeFloat("annualUsed", { nullable: true }),
     annualRemaining: t.exposeFloat("annualRemaining", { nullable: true }),
@@ -24,7 +25,7 @@ builder.prismaObject("Balances", {
     paternityRemaining: t.exposeFloat("paternityRemaining", { nullable: true }),
     unpaidUsed: t.exposeFloat("unpaidUsed", { nullable: true }),
     name: t.exposeString("name"),
-    userId: t.exposeString("userId"),
+    email: t.exposeString("email"),
   }),
 });
 
@@ -32,12 +33,12 @@ builder.queryFields((t) => ({
     getUserBalances: t.prismaField({
         type: "Balances",
         args: {
-        userId: t.arg.string({required: true})
+        email: t.arg.string({required: true})
         },
         resolve:async (query, _, args, context) => {
             const balances = await prisma.balances.findFirst({
                 ...query,
-                where: { userId: args.userId },
+                where: { email: args.email },
               });
               if (!balances) {
                 throw new Error("Leave not found");

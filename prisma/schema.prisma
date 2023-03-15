@@ -57,15 +57,15 @@ model User {
   sessions      Session[]
   role          Role       @default(USER)
   leave         Balances[]
+  profile  Profile?
+}
 
-  // Use the below fields only if passwords are required in the future
-  password                String?
-  //TODO: Remove the isVerified if email Verified Works
-  isVerified              Boolean?  @default(false)
-  activateAccToken        String?
-  activateAccTokenExpires DateTime?
-  passwordResetToken      String?
-  passwordResetExpires    DateTime?
+model Profile {
+   id   String @id @default(cuid())
+ phone  String?
+ jobTitle String?
+userId  String    @unique
+user   User   @relation(fields: [userId], references: [id])
 }
 
 model VerificationToken {
@@ -95,7 +95,7 @@ model Leave {
   requestedAt    DateTime  @default(now())
   requestedBy    String
   requesterNote  String?
-  link String?
+  link           String?
   requesterEmail String
   approved       Boolean?  @default(false)
   rejected       Boolean?  @default(false)
@@ -119,6 +119,7 @@ model AddDays {
 
 model Balances {
   id                 String @id @default(cuid())
+  period             String @default("2023")
   annualCredit       Float? @default(0)
   annualUsed         Float? @default(0)
   annualRemaining    Float? @default(0)
@@ -139,6 +140,6 @@ model Balances {
   paternityRemaining Float? @default(0)
   unpaidUsed         Float? @default(0)
   name               String @default("null")
-  userId             String
-  user               User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  email              String @default("null")
+  user               User   @relation(fields: [email], references: [email], onDelete: Cascade)
 }

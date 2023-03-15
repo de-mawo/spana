@@ -1,24 +1,33 @@
 mutation AddBalances(
+  $email: String!
   $name: String!
-  $userId: String!
-  $annualCredit: Float
-  $familyCredit: Float
-  $healthCredit: Float
-  $maternityCredit: Float
-  $studyCredit: Float
+  $period: String!
   $paternityCredit: Float
+  $maternityCredit: Float
+  $healthCredit: Float
+  $familyCredit: Float
+  $annualCredit: Float
+  $studyCredit: Float
 ) {
   AddBalances(
+    email: $email
     name: $name
-    userId: $userId
-    annualCredit: $annualCredit
-    familyCredit: $familyCredit
-    healthCredit: $healthCredit
-    maternityCredit: $maternityCredit
-    studyCredit: $studyCredit
+    period: $period
     paternityCredit: $paternityCredit
+    maternityCredit: $maternityCredit
+    healthCredit: $healthCredit
+    familyCredit: $familyCredit
+    annualCredit: $annualCredit
+    studyCredit: $studyCredit
   ) {
+    annualRemaining
+    familyRemaining
+    healthRemaining
+    maternityRemaining
+    paternityRemaining
     id
+    studyRemaining
+    unpaidUsed
   }
 }
 
@@ -26,55 +35,64 @@ mutation EditBalances(
   $editBalancesId: String!
   $annualCredit: Float
   $annualRemaining: Float
-  $familyRemaining: Float
-  $familyCredit: Float
   $annualUsed: Float
+  $familyCredit: Float
+  $familyRemaining: Float
   $familyUsed: Float
   $healthCredit: Float
   $healthRemaining: Float
   $healthUsed: Float
-  $maternityCredit: Float
-  $maternityRemaining: Float
-  $maternityUsed: Float
-  $paternityCredit: Float
-  $paternityRemaining: Float
-  $paternityUsed: Float
-  $studyCredit: Float
-  $studyRemaining: Float
-  $studyUsed: Float
   $unpaidUsed: Float
+  $studyUsed: Float
+  $studyRemaining: Float
+  $studyCredit: Float
+  $paternityUsed: Float
+  $paternityRemaining: Float
+  $paternityCredit: Float
+  $maternityUsed: Float
+  $maternityRemaining: Float
+  $maternityCredit: Float
 ) {
   EditBalances(
     id: $editBalancesId
     annualCredit: $annualCredit
     annualRemaining: $annualRemaining
-    familyRemaining: $familyRemaining
-    familyCredit: $familyCredit
     annualUsed: $annualUsed
+    familyCredit: $familyCredit
+    familyRemaining: $familyRemaining
     familyUsed: $familyUsed
     healthCredit: $healthCredit
     healthRemaining: $healthRemaining
     healthUsed: $healthUsed
-    maternityCredit: $maternityCredit
-    maternityRemaining: $maternityRemaining
-    maternityUsed: $maternityUsed
-    paternityCredit: $paternityCredit
-    paternityRemaining: $paternityRemaining
-    paternityUsed: $paternityUsed
-    studyCredit: $studyCredit
-    studyRemaining: $studyRemaining
-    studyUsed: $studyUsed
     unpaidUsed: $unpaidUsed
+    studyUsed: $studyUsed
+    studyRemaining: $studyRemaining
+    studyCredit: $studyCredit
+    paternityUsed: $paternityUsed
+    paternityRemaining: $paternityRemaining
+    paternityCredit: $paternityCredit
+    maternityUsed: $maternityUsed
+    maternityRemaining: $maternityRemaining
+    maternityCredit: $maternityCredit
   ) {
     id
+    annualRemaining
+    familyRemaining
+    healthRemaining
+    maternityRemaining
+    paternityRemaining
+    period
+    studyRemaining
+    unpaidUsed
   }
 }
 
-query getUserBalances($userId: String!) {
-  getUserBalances(userId: $userId) {
+query GetUserBalances($email: String!) {
+  getUserBalances(email: $email) {
     annualCredit
     annualRemaining
     annualUsed
+    email
     familyCredit
     familyRemaining
     familyUsed
@@ -82,44 +100,45 @@ query getUserBalances($userId: String!) {
     healthRemaining
     healthUsed
     id
-    name
     maternityCredit
     maternityRemaining
     maternityUsed
+    name
     paternityCredit
     paternityRemaining
     paternityUsed
+    period
     studyCredit
     studyRemaining
     studyUsed
     unpaidUsed
-    userId
   }
 }
 
-query getAllBalances {
+query GetAllBalances {
   getAllBalances {
     annualCredit
-    annualUsed
     annualRemaining
-    id
-    name
-    healthUsed
-    healthRemaining
-    healthCredit
-    familyUsed
-    familyRemaining
+    annualUsed
+    email
     familyCredit
+    familyRemaining
+    familyUsed
+    healthCredit
+    healthRemaining
+    healthUsed
+    id
     maternityCredit
     maternityRemaining
     maternityUsed
+    name
     paternityCredit
     paternityRemaining
     paternityUsed
+    period
     studyCredit
     studyRemaining
     studyUsed
     unpaidUsed
-    userId
   }
 }

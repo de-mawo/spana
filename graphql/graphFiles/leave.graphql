@@ -52,15 +52,19 @@ query getAllLeaves {
   }
 }
 
-query getUnModeratedLeaves {
+query GetUnModeratedLeaves {
   getUnModeratedLeaves {
-    moderatedBy
+    approved
     daysRequested
     endDate
     id
     link
+    moderatedBy
+    moderatorNote
+    rejected
     requestedAt
     requestedBy
+    requesterEmail
     requesterNote
     startDate
     type

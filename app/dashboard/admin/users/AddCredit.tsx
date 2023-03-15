@@ -4,8 +4,12 @@ import { Dialog, Transition } from "@headlessui/react";
 import { useSession } from "next-auth/react";
 import { Fragment, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { GoChevronDown } from "react-icons/go";
 import { HiOutlineXMark } from "react-icons/hi2";
-import { useAddBalancesMutation, useGetUserQuery } from "../../../../graphql/generated";
+import {
+  useAddBalancesMutation,
+  useGetUserQuery,
+} from "../../../../graphql/generated";
 import { User } from "../../../../types";
 
 type Props = {
@@ -13,6 +17,17 @@ type Props = {
 };
 
 const AddCredit = ({ user }: Props) => {
+  const options = [
+    "2023",
+    "2024",
+    "2025",
+    "2026",
+    "2027",
+    "2028",
+    "2029",
+    "2030",
+  ];
+  const [year, setYear] = useState(options[0]);
   const { data: session, status } = useSession();
   const [isOpen, setIsOpen] = useState(false);
   const [annual, setAnnual] = useState(0);
@@ -26,19 +41,15 @@ const AddCredit = ({ user }: Props) => {
   const closeModal = () => setIsOpen(false);
 
   const name = session?.user?.name as string;
-  const email = session?.user?.email
-
-  const [{data }] = useGetUserQuery( {variables: {email: email as string}}  )
-
-  const userId = data?.getUser.id as string  
-
+  const email = session?.user?.email as string;
 
   const [_, AddCredit] = useAddBalancesMutation();
 
   const SubmitCredits = () => {
     AddCredit({
       name,
-      userId,
+      email,
+      period: year,
       annualCredit: annual,
       healthCredit: health,
       studyCredit: study,
@@ -109,6 +120,29 @@ const AddCredit = ({ user }: Props) => {
                     className="flex flex-col mt-6 space-y-4 "
                     onSubmit={SubmitCredits}
                   >
+                    <div>
+                      <label className="form-label" htmlFor="leave-type">
+                        Leave Type
+                      </label>
+                      <div className="relative inline-block w-full">
+                        <select
+                          id="leave-type"
+                          value={year}
+                          onChange={(e) => setYear(e.target.value)}
+                          className="block w-full rounded-md appearance-none bg-white border border-gray-400 px-4 py-2 pr-8 leading-tight  focus:outline-none focus:ring-1 
+          focus:ring-deep-sapphire-600 focus:border-transparent dark:bg-slate-600"
+                        >
+                          {options.map((option) => (
+                            <option key={option} value={option}>
+                              {option}
+                            </option>
+                          ))}
+                        </select>
+                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 ">
+                          <GoChevronDown className="dark:text-gray-300" />
+                        </div>
+                      </div>
+                    </div>
                     <div>
                       <label htmlFor="notes" className="form-label">
                         Annual Credit

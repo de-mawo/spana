@@ -30,20 +30,20 @@ const EditUserForm = ({ user }: Props) => {
             type="text"
             name="name"
             className="form-input"
-            value={user.name}
+            value={user.name!}
             placeholder="Name"
           />
         </div>
 
         <div>
           <label htmlFor="surname" className="form-label">
-            Surname
+            Phone
           </label>
           <input
             type="text"
             name="surname"
             className="form-input"
-            value={user.surname}
+            value={user.phone}
             placeholder="Surname"
           />
         </div>
@@ -57,7 +57,7 @@ const EditUserForm = ({ user }: Props) => {
             name="job_title"
             id="brand"
             className="form-input"
-            value={user.job_title}
+            value={user.jobTitle}
             placeholder="Job Title"
           />
         </div>

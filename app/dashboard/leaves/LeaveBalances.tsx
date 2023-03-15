@@ -3,7 +3,6 @@ import { useSession } from "next-auth/react";
 import { withUrqlClient } from "next-urql";
 import {
   useGetUserBalancesQuery,
-  useGetUserQuery,
 } from "../../../graphql/generated";
 import { createUrqlClient } from "../../../lib/createUrqlClient";
 
@@ -11,10 +10,8 @@ const Leavebalances = () => {
   const { data: sessionData } = useSession();
   const email = sessionData?.user?.email as string;
 
-  const [{ data: userData }] = useGetUserQuery({ variables: { email } });
-  const userId = userData?.getUser?.id as string;
   
-  const [{ data: balanceData }] = useGetUserBalancesQuery({ variables: { userId } });
+  const [{ data: balanceData }] = useGetUserBalancesQuery({ variables: { email } });
   const balance = balanceData?.getUserBalances;
 
   return (
