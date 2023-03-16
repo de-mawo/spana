@@ -9,7 +9,7 @@ builder.prismaObject("Profile", {
     phone: t.exposeString("phone", { nullable: true }),
     jobTitle: t.exposeString("jobTitle", { nullable: true }),
 
-    userId: t.exposeString("userId"),
+    email: t.exposeString("email"),
 
   }),
 });
@@ -18,17 +18,17 @@ builder.queryFields((t) => ({
   getProfile: t.prismaField({
     type: "Profile",
     args: {
-        userId: t.arg.string({ required: true }),
+        email: t.arg.string({ required: true }),
     },
     resolve: async (query, _, args, context) => {
-      const user = await prisma.profile.findUnique({
+      const profile = await prisma.profile.findUnique({
         ...query,
-        where: { email: args?.userId },
+        where: { email: args?.email },
       });
-      if (!user) {
+      if (!profile) {
         throw new Error("User not found");
       }
-      return user;
+      return profile;
     },
   }),
   getProfiles: t.prismaField({

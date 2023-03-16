@@ -1,0 +1,30 @@
+query GetProfiles {
+  getProfiles {
+    email
+    id
+    jobTitle
+    phone
+  }
+}
+
+query GetProfile($email: String!) {
+  getProfile(email: $email) {
+    email
+    id
+    jobTitle
+    phone
+  }
+}
+mutation AddProfile($email: String!, $jobTitle: String, $phone: String) {
+  AddProfile(email: $email, jobTitle: $jobTitle, phone: $phone) {
+    jobTitle
+    phone
+  }
+}
+
+mutation EditProfile($email: String!, $jobTitle: String, $phone: String) {
+  EditProfile(email: $email, jobTitle: $jobTitle, phone: $phone) {
+    jobTitle
+    phone
+  }
+}

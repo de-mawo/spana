@@ -64,8 +64,8 @@ model Profile {
    id   String @id @default(cuid())
  phone  String?
  jobTitle String?
-userId  String    @unique
-user   User   @relation(fields: [userId], references: [id])
+email  String    @unique
+user   User   @relation(fields: [email], references: [email])
 }
 
 model VerificationToken {

@@ -18,10 +18,9 @@ query getUser($email: String!) {
   }
 }
 
-mutation EditUser($editUserId: String!, $role: Role!) {
-  EditUser(id: $editUserId, role: $role) {
-    id
+mutation EditUser($email: String!, $role: Role!) {
+  EditUser(email: $email, role: $role) {
     role
-    name
+    email
   }
 }

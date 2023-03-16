@@ -92,9 +92,11 @@ export type Mutation = {
   AddBalances: Balances;
   AddDays: AddDays;
   AddLeave: Leave;
+  AddProfile: Profile;
   EditAddDays: AddDays;
   EditBalances: Balances;
   EditLeave: Leave;
+  EditProfile: Profile;
   EditUser: User;
 };
 
@@ -130,6 +132,13 @@ export type MutationAddLeaveArgs = {
   requesterNote?: InputMaybe<Scalars['String']>;
   startDate: Scalars['String'];
   type: LeaveType;
+};
+
+
+export type MutationAddProfileArgs = {
+  email: Scalars['String'];
+  jobTitle?: InputMaybe<Scalars['String']>;
+  phone?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -175,9 +184,24 @@ export type MutationEditLeaveArgs = {
 };
 
 
+export type MutationEditProfileArgs = {
+  email: Scalars['String'];
+  jobTitle?: InputMaybe<Scalars['String']>;
+  phone?: InputMaybe<Scalars['String']>;
+};
+
+
 export type MutationEditUserArgs = {
-  id: Scalars['String'];
+  email: Scalars['String'];
   role: Role;
+};
+
+export type Profile = {
+  __typename?: 'Profile';
+  email: Scalars['String'];
+  id: Scalars['ID'];
+  jobTitle?: Maybe<Scalars['String']>;
+  phone?: Maybe<Scalars['String']>;
 };
 
 export type Query = {
@@ -187,6 +211,8 @@ export type Query = {
   getAllBalances: Array<Balances>;
   getAllLeaves: Array<Leave>;
   getLeave: Leave;
+  getProfile: Profile;
+  getProfiles: Array<Profile>;
   getUnModeratedLeaves: Array<Leave>;
   getUser: User;
   getUserBalances: Balances;
@@ -202,6 +228,11 @@ export type QueryGetAddDaysArgs = {
 
 export type QueryGetLeaveArgs = {
   id: Scalars['String'];
+};
+
+
+export type QueryGetProfileArgs = {
+  email: Scalars['String'];
 };
 
 
@@ -337,6 +368,36 @@ export type EditLeaveMutationVariables = Exact<{
 
 export type EditLeaveMutation = { __typename?: 'Mutation', EditLeave: { __typename?: 'Leave', approved?: boolean | null, moderatedBy: string, moderatorNote?: string | null, rejected?: boolean | null } };
 
+export type GetProfilesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetProfilesQuery = { __typename?: 'Query', getProfiles: Array<{ __typename?: 'Profile', email: string, id: string, jobTitle?: string | null, phone?: string | null }> };
+
+export type GetProfileQueryVariables = Exact<{
+  email: Scalars['String'];
+}>;
+
+
+export type GetProfileQuery = { __typename?: 'Query', getProfile: { __typename?: 'Profile', email: string, id: string, jobTitle?: string | null, phone?: string | null } };
+
+export type AddProfileMutationVariables = Exact<{
+  email: Scalars['String'];
+  jobTitle?: InputMaybe<Scalars['String']>;
+  phone?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type AddProfileMutation = { __typename?: 'Mutation', AddProfile: { __typename?: 'Profile', jobTitle?: string | null, phone?: string | null } };
+
+export type EditProfileMutationVariables = Exact<{
+  email: Scalars['String'];
+  jobTitle?: InputMaybe<Scalars['String']>;
+  phone?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type EditProfileMutation = { __typename?: 'Mutation', EditProfile: { __typename?: 'Profile', jobTitle?: string | null, phone?: string | null } };
+
 export type GetUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -350,12 +411,12 @@ export type GetUserQueryVariables = Exact<{
 export type GetUserQuery = { __typename?: 'Query', getUser: { __typename?: 'User', email?: string | null, id: string, image?: string | null, name?: string | null, role: Role } };
 
 export type EditUserMutationVariables = Exact<{
-  editUserId: Scalars['String'];
+  email: Scalars['String'];
   role: Role;
 }>;
 
 
-export type EditUserMutation = { __typename?: 'Mutation', EditUser: { __typename?: 'User', id: string, role: Role, name?: string | null } };
+export type EditUserMutation = { __typename?: 'Mutation', EditUser: { __typename?: 'User', role: Role, email?: string | null } };
 
 
 export const AddBalancesDocument = gql`
@@ -625,6 +686,58 @@ export const EditLeaveDocument = gql`
 export function useEditLeaveMutation() {
   return Urql.useMutation<EditLeaveMutation, EditLeaveMutationVariables>(EditLeaveDocument);
 };
+export const GetProfilesDocument = gql`
+    query GetProfiles {
+  getProfiles {
+    email
+    id
+    jobTitle
+    phone
+  }
+}
+    `;
+
+export function useGetProfilesQuery(options?: Omit<Urql.UseQueryArgs<GetProfilesQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetProfilesQuery, GetProfilesQueryVariables>({ query: GetProfilesDocument, ...options });
+};
+export const GetProfileDocument = gql`
+    query GetProfile($email: String!) {
+  getProfile(email: $email) {
+    email
+    id
+    jobTitle
+    phone
+  }
+}
+    `;
+
+export function useGetProfileQuery(options: Omit<Urql.UseQueryArgs<GetProfileQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetProfileQuery, GetProfileQueryVariables>({ query: GetProfileDocument, ...options });
+};
+export const AddProfileDocument = gql`
+    mutation AddProfile($email: String!, $jobTitle: String, $phone: String) {
+  AddProfile(email: $email, jobTitle: $jobTitle, phone: $phone) {
+    jobTitle
+    phone
+  }
+}
+    `;
+
+export function useAddProfileMutation() {
+  return Urql.useMutation<AddProfileMutation, AddProfileMutationVariables>(AddProfileDocument);
+};
+export const EditProfileDocument = gql`
+    mutation EditProfile($email: String!, $jobTitle: String, $phone: String) {
+  EditProfile(email: $email, jobTitle: $jobTitle, phone: $phone) {
+    jobTitle
+    phone
+  }
+}
+    `;
+
+export function useEditProfileMutation() {
+  return Urql.useMutation<EditProfileMutation, EditProfileMutationVariables>(EditProfileDocument);
+};
 export const GetUsersDocument = gql`
     query getUsers {
   getUsers {
@@ -656,11 +769,10 @@ export function useGetUserQuery(options: Omit<Urql.UseQueryArgs<GetUserQueryVari
   return Urql.useQuery<GetUserQuery, GetUserQueryVariables>({ query: GetUserDocument, ...options });
 };
 export const EditUserDocument = gql`
-    mutation EditUser($editUserId: String!, $role: Role!) {
-  EditUser(id: $editUserId, role: $role) {
-    id
+    mutation EditUser($email: String!, $role: Role!) {
+  EditUser(email: $email, role: $role) {
     role
-    name
+    email
   }
 }
     `;
