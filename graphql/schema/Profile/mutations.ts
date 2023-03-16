@@ -21,7 +21,7 @@ builder.mutationFields((t) => ({
         ...query,
         where: {
           email: args.email,
-        },
+        }, 
       });
 
       if (CheckUser) {

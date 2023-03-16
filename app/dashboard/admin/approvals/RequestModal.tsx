@@ -20,7 +20,7 @@ type Props = {
 };
 
 const RequestModal = ({ requested }: Props) => {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const [isOpen, setIsOpen] = useState(false);
   const [approved, setApproved] = useState(false);
   const [rejected, setRejected] = useState(false);
