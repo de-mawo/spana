@@ -56,7 +56,7 @@ const EditUser = ({ user }: Props) => {
                     Edit User
                   </Dialog.Title>
 
-                  <EditUserForm user={user}/>
+                  <EditUserForm user={user} pageProps={undefined}/>
                 </Dialog.Panel>
               </Transition.Child>
             </div>
