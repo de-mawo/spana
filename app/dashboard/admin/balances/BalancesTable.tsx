@@ -3,6 +3,7 @@
 import { withUrqlClient } from "next-urql";
 import { useGetAllBalancesQuery } from "../../../../graphql/generated";
 import { createUrqlClient } from "../../../../lib/createUrqlClient";
+import EditBalances from "./EditBalances";
 
 
   
@@ -32,6 +33,9 @@ import { createUrqlClient } from "../../../../lib/createUrqlClient";
           <table className="w-full border    text-left  text-deep-sapphire-900 dark:text-gray-400">
             <thead className=" text-xs overflow-x-auto whitespace-nowrap text-deep-sapphire-900 uppercase bg-deep-sapphire-50 dark:bg-gray-600 dark:text-gray-400">
               <tr>
+              <th scope="col" className="px-6 py-3">
+                  Edit
+                </th>
                 <th scope="col" className="px-6 py-3">
                   Name
                 </th>
@@ -97,11 +101,12 @@ import { createUrqlClient } from "../../../../lib/createUrqlClient";
               </tr>
             </thead>
             <tbody>
-              {data?.getAllBalances.map((balance, i) => (
+              {data?.getAllBalances.map((balance) => (
                 <tr
                   className="bg-white border-b whitespace-nowrap   dark:bg-slate-900 dark:border-deep-sapphire-700"
-                  key={i}
+                  key={balance.id}
                 >
+                  <td className="px-6 py-3"> <EditBalances balance={balance}/> </td>
                   <td className="px-6 py-3">{balance.name} </td>
                   <td className="px-6 py-3">{balance.annualCredit} </td>
                   <td className="px-6 py-3">{balance.annualUsed} </td>

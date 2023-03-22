@@ -9,10 +9,7 @@ import { User } from "../../../../types";
 import AddCredit from "./AddCredit";
 import EditUser from "./EditUser";
 
-type Props = {
-  users: User[];
-  // onClick:() => void
-};
+
 
 const UserTable = () => {
 

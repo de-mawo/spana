@@ -10,7 +10,6 @@ import {
   useEditUserMutation,
   useGetProfileQuery,
 } from "../../../../graphql/generated";
-import { useSession } from "next-auth/react";
 import toast, { Toaster } from "react-hot-toast";
 import { withUrqlClient } from "next-urql";
 import { createUrqlClient } from "../../../../lib/createUrqlClient";
@@ -21,13 +20,13 @@ type Props = {
 };
 
 const EditUserForm = ({ user }: Props) => {
-  const { data } = useSession();
 
-  const email = data?.user?.email as string;
 
-  const options = ["USER", "MODERATOR", "ADMIN"];
+  const email = user?.email as string;
 
-  const [selectedOption, setSelectedOption] = useState(options[0]);
+  const roles = ["USER", "MODERATOR", "ADMIN"];
+
+  const [role, setRole] = useState(roles[0]);
   const [phone, setPhone] = useState("");
   const [jobTitle, setJobTitle] = useState("");
   const [showChangeRole, setShowChangeRole] = useState(false);
@@ -41,7 +40,7 @@ const EditUserForm = ({ user }: Props) => {
   const [{ data: profileData }] = useGetProfileQuery({ variables: { email } });
 
   const ChangeRole = async () => {
-    await EditUser({ role: selectedOption as Role, email }).then(
+    await EditUser({ role: role as Role, email }).then(
       async (res) => {
         if (res.data?.EditUser) {
           toast.success("Role changed Successfully");
@@ -79,10 +78,11 @@ const EditUserForm = ({ user }: Props) => {
 
   useEffect(() => {
     if (profileData) {
-      setPhone(profileData?.getProfile?.phone || ""); // pass only the phone number as a string
+      setPhone(profileData?.getProfile?.phone || ""); // pass only the phone number as a string. TS error Fix
       setJobTitle(profileData.getProfile.jobTitle || "");
+      setRole(user.role)
     }
-  }, [profileData]);
+  }, [profileData, user.role]);
 
   return (
     <>
@@ -166,12 +166,12 @@ const EditUserForm = ({ user }: Props) => {
             <div className="relative inline-block w-full">
               <select
                 id="leave-type"
-                value={selectedOption}
-                onChange={(e) => setSelectedOption(e.target.value)}
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
                 className="block w-full rounded-md appearance-none bg-white border border-gray-400 px-4 py-2 pr-8 leading-tight  focus:outline-none focus:ring-1 
           focus:ring-deep-sapphire-600 focus:border-transparent dark:bg-slate-600"
               >
-                {options.map((option) => (
+                {roles.map((option) => (
                   <option key={option} value={option}>
                     {option}
                   </option>

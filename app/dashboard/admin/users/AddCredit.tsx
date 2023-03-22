@@ -40,8 +40,8 @@ const AddCredit = ({ user }: Props) => {
   const onClick = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
 
-  const name = session?.user?.name as string;
-  const email = session?.user?.email as string;
+  const name = user?.name as string;
+  const email = user?.email as string;
 
   const [_, AddCredit] = useAddBalancesMutation();
 
