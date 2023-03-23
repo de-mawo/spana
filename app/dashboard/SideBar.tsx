@@ -1,4 +1,4 @@
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
@@ -6,7 +6,7 @@ import {
   HiOutlineArrowRightOnRectangle,
   HiOutlineChevronDoubleRight,
 } from "react-icons/hi2";
-import { AdminRoutes } from "./routes";
+import { AdminRoutes, UserRoutes } from "./routes";
 import { MemoizedTooltip } from "../DashTooltip";
 
 type Props = {
@@ -15,6 +15,10 @@ type Props = {
 };
 
 const SideBar = ({ show, showSideBar }: Props) => {
+
+  const { data: sessionData} = useSession();
+
+  const userRole = sessionData?.user?.role 
   const pathname = usePathname();
   
   return (
@@ -40,7 +44,8 @@ const SideBar = ({ show, showSideBar }: Props) => {
             />
           </div>
 
-          <div className="">
+          { userRole === "ADMIN" ?  
+            <div className="">
             {AdminRoutes.map((route, index) => (
               <Link
                 href={route.url}
@@ -61,6 +66,34 @@ const SideBar = ({ show, showSideBar }: Props) => {
               </Link>
             ))}
           </div>
+        
+        :
+        <div className="">
+        {UserRoutes.map((route, index) => (
+          <Link
+            href={route.url}
+            className={
+              pathname?.endsWith(route.url)
+                ? " flex items-center py-4 pl-3  transition-all bg-deep-sapphire-300 underline text-white dark:text-gray-300 dark:bg-gray-600"
+                : "flex items-center py-4 pl-3 text-deep-sapphire-900 transition-all hover:bg-deep-sapphire-300 hover:text-white dark:text-gray-300 dark:hover:bg-gray-600"
+            }
+            key={index}
+          >
+            <MemoizedTooltip text={route.title}>
+            {route.icon}
+            <span className={`pl-4 ${!show && "hidden"}`}>
+              {route.title}{" "}
+            </span>
+            </MemoizedTooltip>
+            
+          </Link>
+        ))}
+      </div>
+        
+        
+        
+        }
+        
         </div>
 
         <button

@@ -16,5 +16,9 @@ export const AdminRoutes = [
 
 
 export const UserRoutes = [
-    
+     { title: "Dashboard", url: "/dashboard", icon: <HiOutlineSquares2X2 className="h-6 w-6 mr-4 shrink-0"/> },
+    { title: "History", url: "/dashboard/history", icon: <RxCounterClockwiseClock className="h-6 w-6 mr-4 shrink-0"/> },
+    { title: "My Leaves", url: "/dashboard/leaves", icon: <HiOutlineCalendarDays className="h-6 w-6 mr-4 shrink-0"/> },
+
+
 ]
