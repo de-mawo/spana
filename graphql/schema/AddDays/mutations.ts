@@ -13,9 +13,9 @@ builder.mutationFields((t) => ({
       requesterEmail: t.arg.string({ required: true }),
     },
     resolve: async (query, _, args, context) => {
-      // if (!(await context).user) {
-      //   throw new Error("You have to be logged in to perform this action");
-      // }
+      if (!(await context).user) {
+        throw new Error("You have to be logged in to perform this action");
+      }
 
       const newRequest = await prisma.addDays.create({
         data: {
@@ -37,9 +37,9 @@ builder.mutationFields((t) => ({
       moderatorNote: t.arg.string({}),
     },
     resolve: async (query, _, args, context) => {
-      // if ((await context).user?.role !== "ADMIN") {
-      //   throw new Error("You are not authorized to perform this action");
-      // }
+      if ((await context).user?.role !== "ADMIN") {
+        throw new Error("You are not authorized to perform this action");
+      }
       const newAddDays = await prisma.addDays.update({
         where: { id: args.id },
         data: { ...args },

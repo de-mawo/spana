@@ -70,9 +70,9 @@ builder.mutationFields((t) => ({
       moderatorNote: t.arg.string({}),
     },
     resolve: async (query, _, args, context) => {
-      // if ((await context).user?.role !== "ADMIN") {
-      //   throw new Error("You are not authorized to perform this action");
-      // }
+      if ((await context).user?.role !== "ADMIN") {
+        throw new Error("You are not authorized to perform this action");
+      }
 
       
 

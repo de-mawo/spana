@@ -16,6 +16,9 @@ builder.mutationFields((t) => ({
       name: t.arg.string({required: true})
     },
     resolve: async (query, _, args, context) => {
+      if ((await context).user?.role !== "ADMIN") {
+        throw new Error("You are not authorized to perform this action");
+      }
 
       const balances = await prisma.balances.findFirst({
         ...query,

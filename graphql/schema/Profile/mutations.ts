@@ -10,12 +10,12 @@ builder.mutationFields((t) => ({
       jobTitle: t.arg.string({}),
     },
     resolve: async (query, _, args, context) => {
-      // if (!(await context).user) {
-      //   throw new Error("You have to be logged in to perform this action");
-      // }
-      // if ((await context).user?.role !== "ADMIN") {
-      //   throw new Error("You are not authorized to perform this action");
-      // }
+      if (!(await context).user) {
+        throw new Error("You have to be logged in to perform this action");
+      }
+      if ((await context).user?.role !== "ADMIN") {
+        throw new Error("You are not authorized to perform this action");
+      }
 
       const CheckUser = await prisma.profile.findFirst({
         ...query,
@@ -46,12 +46,12 @@ builder.mutationFields((t) => ({
       jobTitle: t.arg.string({}),
     },
     resolve: async (query, _, args, context) => {
-      // if (!(await context).user) {
-      //   throw new Error("You have to be logged in to perform this action");
-      // }
-      // if ((await context).user?.role !== "ADMIN") {
-      //   throw new Error("You are not authorized to perform this action");
-      // }
+      if (!(await context).user) {
+        throw new Error("You have to be logged in to perform this action");
+      }
+      if ((await context).user?.role !== "ADMIN") {
+        throw new Error("You are not authorized to perform this action");
+      }
 
       const editedProfile = await prisma.profile.update({
         where: { email: args.email },

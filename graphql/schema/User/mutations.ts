@@ -10,9 +10,9 @@ builder.mutationFields((t) => ({
       email: t.arg.string({ required: true }),
     },
     resolve: async (_query, _, args, context) => {
-      // if ((await context).user?.role !== "ADMIN") {
-      //   throw new Error("You are not authorized to perform this action");
-      // }
+      if ((await context).user?.role !== "ADMIN") {
+        throw new Error("You are not authorized to perform this action");
+      }
 
       const roleEnum: any = args.role; //TODO: The any type here is a quick fix ,investigate how to properly deal with this enum
 
