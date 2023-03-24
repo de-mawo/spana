@@ -10,7 +10,7 @@ import {
   HiOutlineXMark,
 } from "react-icons/hi2";
 import toast, { Toaster } from "react-hot-toast";
-import { useEditLeaveMutation } from "../../../../graphql/generated";
+import { useEditLeaveMutation, useGetUserBalancesQuery } from "../../../../graphql/generated";
 import { createUrqlClient } from "../../../../lib/createUrqlClient";
 import { Requests } from "../../../../types";
 import RequestCard from "./RequestCard";
@@ -30,6 +30,14 @@ const RequestModal = ({ requested }: Props) => {
   const closeModal = () => setIsOpen(false);
 
   const moderator = session?.user?.name as string
+
+const email = requested.requesterEmail
+
+// const [{ data: balanceData }] = useGetUserBalancesQuery({ variables: { email } });
+//   const balance = balanceData?.getUserBalances;
+
+//   console.log(balance);
+
 
   const [_, addDecision] = useEditLeaveMutation();
 
