@@ -2,6 +2,8 @@ import prisma from "../../../lib/prismadb";
 import { builder } from "../../builder";
 import { LeaveType } from "./enum";
 import moment from "moment";
+import sendMail from "../../../lib/sendMail";
+import { LeaveRequestEmailTemplate } from "../../../lib/LeaveRequestEmailTemplate";
 
 builder.mutationFields((t) => ({
   AddLeave: t.prismaField({
@@ -14,14 +16,14 @@ builder.mutationFields((t) => ({
       requestedBy: t.arg.string({ required: true }),
       requesterNote: t.arg.string({}),
       requesterEmail: t.arg.string({ required: true }),
-      link: t.arg.string({})
+      link: t.arg.string({}),
     },
     resolve: async (query, _, args, context) => {
       // if (!(await context).user) {
       //   throw new Error("You have to be logged in to perform this action");
       // }
 
-      //TODO: Verify if the DB time when saving arequest is correct   
+      //TODO: Verify if the DB time when saving arequest is correct
       //TODO: check out this answer ==> https://stackoverflow.com/questions/74686435/prisma-datetime-format-issue
       const changeStartDate = args.startDate;
       const startDateObject = new Date(changeStartDate);
@@ -47,6 +49,20 @@ builder.mutationFields((t) => ({
       if (VerifyUser) {
         throw new Error("You have already requested leave for these dates");
       }
+
+      const html = LeaveRequestEmailTemplate(
+        args.requestedBy,
+        args.type,
+        args.daysRequested,
+        args.startDate,
+        args.endDate,
+        args.requesterNote!
+      );
+
+      await sendMail({
+        subject: "Leave Request",
+        html,
+      });
 
       const newRequest = await prisma.leave.create({
         data: {
@@ -74,9 +90,6 @@ builder.mutationFields((t) => ({
         throw new Error("You are not authorized to perform this action");
       }
 
-      
-
-      
       const newLeave = await prisma.leave.update({
         where: { id: args.id },
         data: { ...args },
