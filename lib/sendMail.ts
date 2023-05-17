@@ -18,7 +18,7 @@ const sendMail = async (options: { subject: string;  html: any; }) => {
           const sendTo = process.env.SEND_TO
         // 2) Define the email options
         const mailOptions = {
-            from: `HR App <${hrEmail}>`,
+            from: `HR App <info@jajaapp.co.za>`,
             to: sendTo,
             subject: options.subject,
             html: options.html,

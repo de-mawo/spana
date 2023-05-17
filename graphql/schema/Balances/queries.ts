@@ -1,6 +1,8 @@
 import prisma from "../../../lib/prismadb";
 import { builder } from "../../builder";
 
+
+
 builder.prismaObject("Balances", {
   fields: (t) => ({
     id: t.exposeID("id"),
@@ -30,26 +32,25 @@ builder.prismaObject("Balances", {
 });
 
 builder.queryFields((t) => ({
-    getUserBalances: t.prismaField({
-        type: "Balances",
-        args: {
-        email: t.arg.string({required: true})
-        },
-        resolve:async (query, _, args, context) => {
-            const balances = await prisma.balances.findFirst({
-                ...query,
-                where: { email: args.email },
-              });
-              if (!balances) {
-                throw new Error("Leave not found");
-              }
-              return balances;
-        
-        }
-    }),
+  getUserBalances: t.prismaField({
+    type: "Balances",
+    args: {
+      email: t.arg.string({ required: true }),
+    },
+    resolve: async (query, _, args, context) => {
+      const balances = await prisma.balances.findFirst({
+        ...query,
+        where: { email: args.email },
+      });
+      if (!balances) {
+        throw new Error("Leave not found");
+      }
+      return balances;
+    },
+  }),
 
-    getAllBalances: t.prismaField({
-        type: ["Balances"],
-        resolve: (query) => prisma.balances.findMany(query)
-    })
-}))
+  getAllBalances: t.prismaField({
+    type: ["Balances"],
+    resolve: (query) => prisma.balances.findMany(query),
+  }),
+}));
